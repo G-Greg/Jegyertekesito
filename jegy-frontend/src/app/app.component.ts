@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faTicket } from '@fortawesome/free-solid-svg-icons';
+import { faTicket, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,7 @@ export class AppComponent {
 
   title = 'jegy-frontend';
   faTicket = faTicket;
+  faUser = faUser;
 
   constructor(private router: Router) {
     this.initJegyertekesito();
