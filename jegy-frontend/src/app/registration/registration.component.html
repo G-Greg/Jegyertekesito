@@ -8,9 +8,9 @@
 
       <div class="mb-3">
         <label for="name">
-          Name
+          Username
         </label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter username"
           [(ngModel)]="form.name" required #name="ngModel" tabindex="-1">
 
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger p-2 mt-2">
@@ -48,15 +48,23 @@
           </div>
         </div>
       </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="terms" name="terms" required #terms>
+        <label class="form-check-label" for="terms">I agree to the <a href="/sign-up">Terms of Service</a></label>
+      </div>
+
+
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Sign Up</button>
+        <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid || !terms.checked">Sign Up</button>
       </div>
 
     </form>
   </div>
-  <div class="card-footer text-muted">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="btn btn-secondary btn-block" (click)="close.emit()">Close</button>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col text-start">2022</div>
+      <div class="col text-end">jegyertekesito.hu</div>
     </div>
   </div>
 

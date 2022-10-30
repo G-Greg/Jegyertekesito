@@ -20,5 +20,4 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     console.log(this.form);
   }
-
 }

@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewEventComponent implements OnInit {
 
+  form = {description: '', location: '', email: '', password: ''}
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(){
+    console.log(this.form)
   }
 
 }
