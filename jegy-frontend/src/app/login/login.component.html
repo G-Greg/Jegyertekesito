@@ -1,9 +1,9 @@
-<form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="card">
-        <div class="card-header">
-            Login
-        </div>
-        <div class="card-body">
+<div class="card">
+    <div class="card-header">
+        Login
+    </div>
+    <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
 
             <div class="mb-3">
@@ -11,7 +11,7 @@
                     Email
                 </label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter email"
-                    [(ngModel)]="form.email" required #email="ngModel">
+                    [(ngModel)]="form.email" required #email="ngModel" tabindex="-1">
 
                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger p-2 mt-2">
                     <div *ngIf="email.errors?.['required']">
@@ -19,16 +19,17 @@
                     </div>
                 </div>
             </div>
-            
+
 
             <div class="mb-3">
                 <label for="password">
                     Password
                 </label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
-                    [(ngModel)]="form.password" required #password="ngModel">
+                    [(ngModel)]="form.password" required #password="ngModel" tabindex="-1">
 
-                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger p-2 mt-2">
+                <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                    class="alert alert-danger p-2 mt-2">
                     <div *ngIf="password.errors?.['required']">
                         Password is required.
                     </div>
@@ -38,21 +39,20 @@
 
 
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary" type="submit"
-                    [disabled]="f.form.invalid">Login</button>
+                <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Login</button>
             </div>
 
             <hr>
 
-            <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary btn-block" (click)="signUp()">Sign Up</button>
-            </div>
-
+        </form>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary btn-block" (click)="showSignUp()">Sign Up</button>
         </div>
-        <div class="card-footer text-muted">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-secondary btn-block" (click)="close.emit()">Close</button>
-            </div>
+
+    </div>
+    <div class="card-footer text-muted">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-secondary btn-block" (click)="close.emit()">Close</button>
         </div>
     </div>
-</form>
+</div>

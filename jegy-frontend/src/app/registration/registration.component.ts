@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-registration',
@@ -7,11 +6,10 @@ import { FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-  });
 
+  close = new EventEmitter<void>();
+
+  form = {name: '', email: '', password: ''}
   constructor() {
 
   }
@@ -20,8 +18,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.log(this.profileForm.value);
+    console.log(this.form);
   }
 
 }

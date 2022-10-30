@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,9 +15,8 @@ export class LoginComponent implements OnInit {
   @Output()
   close = new EventEmitter<void>();
 
-  constructor() {
+  constructor(private router: Router) {
   }
-
 
   ngOnInit(): void {
   }
@@ -28,10 +28,8 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     console.log(this.form, "form")
   }
-  signUp(){
-    console.log('asd')
+  showSignUp(){
+    this.close.emit()
+    this.router.navigate(['/sign-up']);
   }
-
-
-
 }
