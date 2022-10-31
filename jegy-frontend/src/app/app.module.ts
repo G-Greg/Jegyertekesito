@@ -11,6 +11,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { FormsModule } from '@angular/forms';
 import { NewEventComponent } from './new-event/new-event.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     RegistrationComponent,
-    NewEventComponent
+    NewEventComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

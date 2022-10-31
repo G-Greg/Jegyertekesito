@@ -5,86 +5,90 @@
     <div class="card-body">
         <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
-            <div class="mb-3">
-                <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" name="description"
-                    placeholder="Enter description" [(ngModel)]="form.description" required #description="ngModel"
-                    tabindex="-1">
+            <div class="row">
+                <div class="col">
 
-                <div *ngIf="description.invalid && (description.dirty || description.touched)"
-                    class="alert alert-danger p-2 mt-2">
-                    <div *ngIf="description.errors?.['required']">
-                        Description is required.
+                    <div class="mb-3">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="Enter description" [(ngModel)]="form.description" required
+                            #description="ngModel" tabindex="-1">
+
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                            class="alert alert-danger p-2 mt-2">
+                            <div *ngIf="description.errors?.['required']">
+                                Description is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location"
+                            placeholder="Enter location" [(ngModel)]="form.location" required #location="ngModel"
+                            tabindex="-1">
+
+                        <div *ngIf="location.invalid && (location.dirty || location.touched)"
+                            class="alert alert-danger p-2 mt-2">
+                            <div *ngIf="location.errors?.['required']">
+                                Location is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category">Category</label>
+                        <select class="form-select" id="category" name="category" required #category="ngModel"
+                            [(ngModel)]="form.category">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="startDate">Event start</label>
+                        <input id="startDate" class="form-control" type="date" name="startDate" required
+                            #startDate="ngModel" [(ngModel)]="form.startDate" />
+                    </div>
+                </div>
+
+                <div class="col">
+
+                    <div class="mb-3">
+                        <label for="tickets">
+                            Number of tickets
+                        </label>
+                        <input type="number" class="form-control" id="tickets" name="tickets" min="1"
+                            [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
+
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="description">About</label>
+                        <textarea type="textarea" class="form-control" id="about" name="about" [(ngModel)]="form.about"
+                            required #about="ngModel" tabindex="-1" rows="4"></textarea>
+
+                        <div *ngIf="about.invalid && (about.dirty || about.touched)"
+                            class="alert alert-danger p-2 mt-2">
+                            <div *ngIf="about.errors?.['required']">
+                                About is required.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="endDate">Event end</label>
+                        <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="form.endDate"
+                            required #endDate="ngModel" tabindex="-1" />
                     </div>
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="location">Location</label>
-                <input type="text" class="form-control" id="location" name="location" placeholder="Enter location"
-                    [(ngModel)]="form.location" required #location="ngModel" tabindex="-1">
 
-                <div *ngIf="location.invalid && (location.dirty || location.touched)"
-                    class="alert alert-danger p-2 mt-2">
-                    <div *ngIf="location.errors?.['required']">
-                        Location is required.
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="category">Category</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled>Select</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-
-
-            <div class="mb-3">
-                <label for="startDate">Event start</label>
-                <input id="startDate" class="form-control" type="date" />
-            </div>
-
-
-            <div class="mb-3">
-                <label for="password">
-                    Password
-                </label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
-                    [(ngModel)]="form.password" required #password="ngModel" tabindex="-1">
-
-                <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                    class="alert alert-danger p-2 mt-2">
-                    <div *ngIf="password.errors?.['required']">
-                        Password is required.
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="mb-3">
-                <label for="description">About</label>
-                <textarea type="textarea" class="form-control" id="description" name="description"
-                    placeholder="Enter description" [(ngModel)]="form.description" required #description="ngModel"
-                    tabindex="-1" rows="3"></textarea>
-
-                <div *ngIf="description.invalid && (description.dirty || description.touched)"
-                    class="alert alert-danger p-2 mt-2">
-                    <div *ngIf="description.errors?.['required']">
-                        Description is required.
-                    </div>
-                </div>
-            </div>
-
-            
-            <div class="mb-3">
-                <label for="endDate">Event end</label>
-                <input id="endDate" class="form-control" type="date" />
-            </div>
-            
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Create</button>
             </div>

@@ -27,6 +27,6 @@ export class AppComponent {
   }
 
   initJegyertekesito() {
-
+    //this.router.navigate(['/home']);
   }
 }
