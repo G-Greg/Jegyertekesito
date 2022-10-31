@@ -5,17 +5,30 @@
   <div class="card-body">
     <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
-
       <div class="mb-3">
         <label for="name">
           Name
         </label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter username"
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
           [(ngModel)]="form.name" required #name="ngModel" tabindex="-1">
 
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="name.errors?.['required']">
             Name is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="name">
+          Username
+        </label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
+          [(ngModel)]="form.username" required #username="ngModel" tabindex="-1">
+
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger p-2 mt-2">
+          <div *ngIf="username.errors?.['required']">
+            Username is required.
           </div>
         </div>
       </div>
