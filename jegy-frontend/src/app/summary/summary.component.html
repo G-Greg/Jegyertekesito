@@ -9,61 +9,54 @@
                 <div class="col">
 
                     <div class="mb-3">
-                        <label for="description">Description</label>
+                        <label for="name">Name</label>
                     </div>
 
                     <div class="mb-3">
                         <label for="location">Location</label>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="category">Category</label>
-                    </div>
-
 
                     <div class="mb-3">
-                        <label for="startDate">Event start</label>
+                        <label for="startDate">Date</label>
                     </div>
                 </div>
 
                 <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="tickets">
+                                    Number of tickets
+                                </label>
+                                <input type="number" class="form-control" id="tickets" name="tickets" min="1"
+                                    [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
 
-                    <div class="mb-3">
-                        <label for="tickets">
-                            Number of tickets
-                        </label>
-                        <input type="number" class="form-control" id="tickets" name="tickets" min="1"
-                            [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
-
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="description">About</label>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="endDate">Event end</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="summary">Summary</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <hr>
             <div class="row">
-                <div class="d-grid col-2 mx-auto">
+                <div class="d-grid col-2">
                     <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Purchase</button>
                 </div>
-                <div class="d-grid col-2 mx-auto">
-                    <button class="btn btn-secondary" type="submit" [disabled]="f.form.invalid">Cancel</button>
-                </div>
+
             </div>
         </form>
     </div>
     <div class="card-footer">
         <div class="row">
-            <div class="col text-start">2022</div>
-            <div class="col text-end">jegyertekesito.hu</div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary" (click)="close.emit()">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

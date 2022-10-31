@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-summary',
@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryComponent implements OnInit {
   form = { description: '', location: '', category: null, startDate: null, about: '', tickets: 1, endDate: null }
+  
+  @Output()
+  close = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
   }
-  
+
   onSubmit() {
     console.log(this.form)
   }
