@@ -7,15 +7,15 @@
 
 
             <div class="mb-3">
-                <label for="email">
-                    Email
+                <label for="username">
+                    Username
                 </label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Enter email"
-                    [(ngModel)]="form.email" required #email="ngModel" tabindex="-1">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
+                    [(ngModel)]="form.username" required #username="ngModel" tabindex="-1">
 
-                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger p-2 mt-2">
-                    <div *ngIf="email.errors?.['required']">
-                        Email is required.
+                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger p-2 mt-2">
+                    <div *ngIf="username.errors?.['required']">
+                        Username is required.
                     </div>
                 </div>
             </div>

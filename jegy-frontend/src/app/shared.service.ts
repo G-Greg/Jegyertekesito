@@ -15,6 +15,10 @@ export class UserService {
         return this.http.get(this.API_URL + 'api/users');
     }
 
+    getUser(value: any) {
+        return this.http.get(this.API_URL + 'api/users/' + value)
+    }
+
     addUser(value: any) {
         return this.http.post(this.API_URL + 'api/users', value);
     }
@@ -25,6 +29,10 @@ export class UserService {
 
     deleteUser(value: any) {
         return this.http.delete(this.API_URL + 'api/users', value);
+    }
+
+    login(value: any) {
+        return this.http.post(this.API_URL + 'api/users/login', value)
     }
 }
 

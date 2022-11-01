@@ -116,5 +116,26 @@ namespace jegy_backend.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        // GET: api/Users/login
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(User data)
+        {
+
+
+            var result = _context.Users.Where(e => e.UserName == data.UserName).ToList();
+
+
+            if (result.Count == 0)
+            {
+                return NotFound();
+            } 
+            /*else if (user.Password != password) 
+            {
+                return BadRequest();
+            }*/
+
+            return Accepted();
+        }
     }
 }

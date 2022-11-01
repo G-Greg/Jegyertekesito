@@ -48,17 +48,4 @@ export class RegistrationComponent implements OnInit {
     }
     return false
   }
-
-  Users: any = [];
-  asd() {
-    this.service.getUsers().subscribe(data => {
-      console.log(data)
-      this.Users = data;
-    });
-  }
-
-  handleResponse(response: any) {
-    console.log(response)
-  }
-
 }
