@@ -78,6 +78,18 @@ namespace jegy_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            foreach (var user1 in _context.Users)
+            {
+                if (user.UserName == user1.UserName)
+                {
+                    return Conflict("This username is already taken");
+                }
+                if (user.Email == user1.Email) 
+                {
+                    return Conflict("This email is already registered");
+                }
+            }
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
