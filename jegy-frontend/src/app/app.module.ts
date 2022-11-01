@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { NewEventComponent } from './new-event/new-event.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SummaryComponent } from './summary/summary.component';
+import { UserService, EventService } from './shared.service'
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { SummaryComponent } from './summary/summary.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UserService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

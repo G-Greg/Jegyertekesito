@@ -9,7 +9,7 @@ export class RegistrationComponent implements OnInit {
 
   close = new EventEmitter<void>();
 
-  form = {name: '', username:'', email: '', password: ''}
+  form = {name: '', username:'', email: '', password: '', terms: false}
   constructor() {
 
   }

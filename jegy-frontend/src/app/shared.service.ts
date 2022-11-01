@@ -28,6 +28,10 @@ export class UserService {
     }
 }
 
+@Injectable({
+    providedIn: 'root'
+})
+
 export class EventService {
     readonly API_URL = "http://localhost:4200/";
 
