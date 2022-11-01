@@ -7,6 +7,15 @@
     <div class="p-5">
       <button type="button" class="btn btn-secondary btn-lg m-5" routerLink="/new-event">Add new Event</button>
     </div>
+
+    <div class="p-2">
+      <div *ngFor="let user of Users">
+        {{user.name}}1
+      </div>
+    </div>
+
+
+
   </div>
 </main>
 <div class="card-footer card">

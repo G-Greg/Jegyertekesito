@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using jegy_backend.Models;
 using jegy_backend.Contexts;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddDefaultPolicy(
         policy =>
         {
-            policy.WithOrigins("https://localhost:7211").AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins("https://localhost:7211", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
 
         });
 });
@@ -41,7 +40,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
