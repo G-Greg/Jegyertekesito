@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared.service';
-
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   @Output()
   close = new EventEmitter<void>();
 
-  constructor(private router: Router, private service: UserService) {
+  constructor(private router: Router, private uService: UserService, private sService: StorageService ) {
   }
 
   ngOnInit(): void {
@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
 
     if (this.form) {
-      this.service.login({username: this.form.username, password: this.form.password}).subscribe({
-        next: () => console.log("ok"),
-        error: (err) => console.log(err.error)
+      this.uService.login({username: this.form.username, password: this.form.password}).subscribe({
+        next: (res) => this.handleLogin(res),
+        error: (err) => alert(err.error.title)
       })
     }
 
@@ -39,5 +39,10 @@ export class LoginComponent implements OnInit {
   showSignUp() {
     this.close.emit()
     this.router.navigate(['/sign-up']);
+  }
+
+  handleLogin(user : any){
+    this.sService.saveUser(user)
+    window.location.reload();
   }
 }

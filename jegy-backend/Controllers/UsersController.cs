@@ -123,19 +123,20 @@ namespace jegy_backend.Controllers
         {
 
 
-            var result = _context.Users.Where(e => e.UserName == data.UserName).ToList();
+            try
+            {
+                var result = _context.Users.Where(e => e.UserName == data.UserName).ToList().First();
 
-
-            if (result.Count == 0)
+                if (result.Password != data.Password)
+                {
+                    return BadRequest();
+                }
+                return Ok(result);
+            }
+            catch (Exception)
             {
                 return NotFound();
-            } 
-            /*else if (user.Password != password) 
-            {
-                return BadRequest();
-            }*/
-
-            return Accepted();
+            }
         }
     }
 }

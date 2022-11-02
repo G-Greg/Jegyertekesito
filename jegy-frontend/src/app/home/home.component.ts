@@ -13,13 +13,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private service: UserService) { }
 
-  Users: any = [];
 
   ngOnInit(): void {
-    this.service.getUsers().subscribe(data => {
-      console.log(data)
-      this.Users = data;
-    });
   }
 
 }

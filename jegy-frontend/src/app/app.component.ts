@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { faTicket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
+import { StorageService } from './storage.service';
 
 @Component({
   selector: 'app-root',
@@ -15,18 +16,30 @@ export class AppComponent {
   faTicket = faTicket;
   faUser = faUser;
 
-  constructor(private router: Router, private modalService: NgbModal) {
+  username = null;
+
+  constructor(private router: Router, private modalService: NgbModal, private sService: StorageService) {
     this.initJegyertekesito();
   }
 
 
   showLogin() {
-    let login = this.modalService.open(LoginComponent, { backdrop: 'static', centered: true });
-
-    (login.componentInstance as LoginComponent).initLogin({ close: () => login.close() });
+    if (this.username === null) {
+      let login = this.modalService.open(LoginComponent, { backdrop: 'static', centered: true });
+      (login.componentInstance as LoginComponent).initLogin({ close: () => login.close() });
+    }
   }
 
   initJegyertekesito() {
     this.router.navigate(['/home']);
+    const loggedUser = this.sService.getUser()
+    if(loggedUser !== null){
+      this.username = loggedUser.username
+    }
+  }
+
+  logout(){
+    this.sService.signOut();
+    window.location.reload();
   }
 }
