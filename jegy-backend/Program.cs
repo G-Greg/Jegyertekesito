@@ -18,6 +18,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<UserContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Jegyertekesito")));
 
+builder.Services.AddDbContext<EventContext>(opt =>
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("Jegyertekesito")));
+
 /*builder.Services.AddScoped<UserContext>();*/
 
 

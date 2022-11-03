@@ -4,7 +4,7 @@
   <div class="text-center">
     <ngb-datepicker class="m-5"></ngb-datepicker>
 
-    <div class="p-5">
+    <div class="p-5" *ngIf="addEventShow">
       <button type="button" class="btn btn-secondary btn-lg m-5" routerLink="/new-event">Add new Event</button>
     </div>
     

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { UserService } from 'src/app/shared.service'
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +9,16 @@ import { UserService } from 'src/app/shared.service'
 export class HomeComponent implements OnInit {
 
 
-  constructor(private service: UserService) { }
+  addEventShow = false;
+  constructor(private sService: StorageService) { }
 
 
   ngOnInit(): void {
+    let user = this.sService.getUser();
+    if (user)
+    {
+      user.username === "admin" ? this.addEventShow = true : this.addEventShow = false
+    }
   }
 
 }

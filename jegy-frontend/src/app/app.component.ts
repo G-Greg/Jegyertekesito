@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faTicket, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faTicket, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { StorageService } from './storage.service';
@@ -15,6 +15,7 @@ export class AppComponent {
   title = 'jegy-frontend';
   faTicket = faTicket;
   faUser = faUser;
+  faRightFromBracket = faRightFromBracket;
 
   username = null;
 
