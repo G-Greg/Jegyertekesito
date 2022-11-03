@@ -41,22 +41,22 @@ export class UserService {
 })
 
 export class EventService {
-    readonly API_URL = "http://localhost:4200/";
+    readonly API_URL = "https://localhost:7211/";
 
     constructor(private http: HttpClient) { }
-    getUsers(): Observable<any> {
-        return this.http.get(this.API_URL + 'api/users');
+    getEvents(): Observable<any> {
+        return this.http.get(this.API_URL + 'api/events');
     }
 
-    addUser(value: any) {
-        return this.http.post(this.API_URL + 'api/users', value);
+    addEvent(value: any) {
+        return this.http.post(this.API_URL + 'api/events', value);
     }
 
-    updateUser(value: any) {
-        return this.http.put(this.API_URL + 'api/users', value);
+    updateEvent(value: any) {
+        return this.http.put(this.API_URL + 'api/events', value);
     }
 
-    deleteUser(value: any) {
-        return this.http.delete(this.API_URL + 'api/users', value);
+    deleteEvent(value: any) {
+        return this.http.delete(this.API_URL + 'api/events', value);
     }
 }
