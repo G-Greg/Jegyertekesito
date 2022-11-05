@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../shared.service';
+import { Event } from '../models/event.model'
 
 @Component({
   selector: 'app-new-event',
@@ -9,24 +11,61 @@ import { EventService } from '../shared.service';
 export class NewEventComponent implements OnInit {
   PhotoFileName: string = '';
   PhotoFilePath: string = '';
-  form = { description: '', location: '', category: null, eventStart: null, eventEnd: null, tickets: 1, about: '', imgSource: '' }
 
-  constructor(private service: EventService) { }
+  form = { id: null, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, about: '', imgSource: '' }
+
+  event?: Event;
+  id = this.activatedRoute.snapshot.paramMap.get('id');
+
+  constructor(private service: EventService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    let img = <HTMLImageElement>document.getElementById('avatar');
+    if (this.id) {
+      this.service.getEvent(this.id).subscribe({
+        next: (data: any) => {
+          console.log("Success get", data)
+          this.form.id = data.id
+          this.form.description = data.description
+          this.form.location = data.location
+          this.form.category = data.category
+          this.form.eventStart = data.eventStart
+          this.form.eventEnd = data.eventEnd
+          this.form.tickets = data.numberOfTickets
+          this.form.about = data.about
+          this.form.imgSource = data.imgSource
+          img.src = data.imgSource
+        },
+        error: (err) => console.log(err)
+      })
+    }
   }
 
   onSubmit() {
     let newEvent = this.createEvent()
     console.log(newEvent)
-    this.service.addEvent(newEvent).subscribe({
-      next: () => console.log("Created"),
-      error: (err) => console.log(err)
-    })
+    if (this.id) {
+      this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
+        next: () => {
+          console.log("Updated")
+        },
+        error: (err) => console.log(err)
+      })
+    }
+    else {
+      this.service.addEvent(newEvent).subscribe({
+        next: (data) => {
+          console.log("Created", data)
+        },
+        error: (err) => console.log(err)
+      })
+    }
   }
 
   createEvent() {
     let event = {
+      id: this.form.id,
       description: this.form.description,
       location: this.form.location,
       category: this.form.category,
@@ -36,7 +75,6 @@ export class NewEventComponent implements OnInit {
       about: this.form.about,
       imgSource: this.form.imgSource
     }
-
     return this.eventIsValid(event) ? event : null
   }
 
@@ -52,45 +90,14 @@ export class NewEventComponent implements OnInit {
 
   onUploadPhoto(event: any) {
     var uploadedImg: any = "";
-    var avatar = <HTMLImageElement> document.getElementById('avatar');
+    var image = <HTMLImageElement>document.getElementById('avatar');
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       uploadedImg = reader.result;
-      avatar.src = uploadedImg;
+      image.src = uploadedImg;
       this.form.imgSource = uploadedImg
     });
     reader.readAsDataURL(event.target.files[0]);
-    
-    /*var canvas = <HTMLCanvasElement>document.getElementById("mycanvas");
-    const dataURL = canvas.toDataURL();
-    debugger*/
-    
-    
-    
-    /*const reader = new FileReader();
-    var uploadedImg: any = "";
-    var profilePic = new Image;
-    var avatar = document.getElementById('avatar');
-    reader.addEventListener("load", () => {
-      uploadedImg = reader.result;
-      profilePic.src = uploadedImg;
-      avatar.src = uploadedImg;
-    });
-    reader.readAsDataURL(this.files[0]);*/
-    
-    
-    
-    
-    
-    
-    /*var img = event.target.files[0];
-    const formData: FormData = new FormData();
-    formData.append('uploadedFile', img, img.name);*/
-
-    /*this.service.uploadPhoto(formData).subscribe((data:any)=>{
-      this.PhotoFileName=data.toString();
-      this.PhotoFilePath=this.service.PhotoUrl+this.PhotoFileName;
-    })*/
   }
 
 }

@@ -48,12 +48,16 @@ export class EventService {
         return this.http.get(this.API_URL + 'api/events');
     }
 
+    getEvent(value: any) {
+        return this.http.get(this.API_URL + 'api/events/' + value);
+    }
+
     addEvent(value: any) {
         return this.http.post(this.API_URL + 'api/events', value);
     }
 
     updateEvent(value: any) {
-        return this.http.put(this.API_URL + 'api/events', value);
+        return this.http.put(this.API_URL + 'api/events/' + value.id, value.event);
     }
 
     deleteEvent(value: any) {

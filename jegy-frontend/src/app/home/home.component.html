@@ -20,7 +20,7 @@
         <div *ngIf="i % 2 == 0" class="col-6 event" style="border-right: 2px solid rgb(255, 185, 255)">
           <div class="row">
             <div class="col-sm-8">
-              <img src="/assets/golyabal.jpg" class="card-img-top rounded">
+              <img src="{{event.imgSource}}" class="card-img-top rounded">
             </div>
             <div class="col-sm-4" *ngIf="addEventShow">
               <h2><span class="badge bg-secondary">11.<br>04.</span></h2>
