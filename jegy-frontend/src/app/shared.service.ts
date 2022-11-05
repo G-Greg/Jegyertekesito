@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 
 export class UserService {
-    readonly API_URL = "https://localhost:7211/";
+    private readonly API_URL = "https://localhost:7211/";
 
     constructor(private http: HttpClient) { }
     getUsers(): Observable<any> {

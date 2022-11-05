@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../storage.service';
+import { EventService } from '../shared.service';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,22 @@ export class HomeComponent implements OnInit {
 
 
   addEventShow = false;
-  constructor(private sService: StorageService) { }
+  listView = true;
+
+  events: any = [];
+
+  constructor(private sService: StorageService, private eService: EventService) { }
 
 
   ngOnInit(): void {
     let user = this.sService.getUser();
-    if (user)
-    {
+    if (user) {
       user.username === "admin" ? this.addEventShow = true : this.addEventShow = false
     }
+
+    this.eService.getEvents().subscribe(resposnse => {
+      this.events = resposnse;
+    })
   }
 
 }
