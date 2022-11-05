@@ -11,7 +11,8 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'sign-up', component: RegistrationComponent},
     { path: 'new-event', component: NewEventComponent},
-    { path: 'summary', component: SummaryComponent}
+    { path: 'summary', component: SummaryComponent},
+    { path: 'event/edit/:id', component: NewEventComponent},
 ];
 
 @NgModule({

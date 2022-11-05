@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../storage.service';
 import { EventService } from '../shared.service';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Event } from '../models/event.model' 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +12,15 @@ import { EventService } from '../shared.service';
 })
 export class HomeComponent implements OnInit {
 
+  faPen = faPen;
+  faTrash = faTrash;
 
   addEventShow = false;
   listView = true;
 
-  events: any = [];
+  events: Event[] = [];
 
-  constructor(private sService: StorageService, private eService: EventService) { }
+  constructor(private router: Router, private sService: StorageService, private eService: EventService) { }
 
 
   ngOnInit(): void {
@@ -27,6 +32,11 @@ export class HomeComponent implements OnInit {
     this.eService.getEvents().subscribe(resposnse => {
       this.events = resposnse;
     })
+    //sort by date
+  }
+
+  onSelect(event: Event) {
+    this.router.navigate(['/event/edit/', event.id]);
   }
 
 }
