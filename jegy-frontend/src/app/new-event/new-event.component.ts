@@ -8,7 +8,7 @@ import { EventService } from '../shared.service';
 })
 export class NewEventComponent implements OnInit {
 
-  form = { description: '', location: '', category: null, startDate: null, endDate: null, tickets: 1, about: ''}
+  form = { description: '', location: '', category: null, eventStart: null, eventEnd: null, tickets: 1, about: ''}
 
   constructor(private service: EventService) { }
 
@@ -29,9 +29,9 @@ export class NewEventComponent implements OnInit {
       description: this.form.description,
       location: this.form.location,
       category: this.form.category,
-      startDate: this.form.startDate,
-      endDate: this.form.endDate,
-      tickets: this.form.tickets,
+      eventStart: this.form.eventStart,
+      eventEnd: this.form.eventEnd,
+      numberOfTickets: this.form.tickets,
       about: this.form.about
     }
 
@@ -40,8 +40,8 @@ export class NewEventComponent implements OnInit {
 
   eventIsValid(event: any): boolean {
     if (event.description !== null || event.location !== null ||
-       event.category !== null || event.startDate !== null ||
-       event.endDate !== null || event.tickets !== null || event.about !== null ) {
+       event.category !== null || event.eventStart !== null ||
+       event.eventStart !== null || event.tickets !== null || event.about !== null ) {
       return true
     }
     return false

@@ -40,18 +40,18 @@
                         <label for="category">Category</label>
                         <select class="form-select" id="category" name="category" required #category="ngModel"
                             [(ngModel)]="form.category">
-                            <option value="1">Early Bird</option>
-                            <option value="2">Normal</option>
-                            <option value="3">VIP</option>
-                            <option value="3">Last minute</option>
+                            <option value="early bird">Early Bird</option>
+                            <option value="normal">Normal</option>
+                            <option value="vip">VIP</option>
+                            <option value="last minute">Last minute</option>
                         </select>
                     </div>
 
 
                     <div class="mb-3">
-                        <label for="startDate">Event start</label>
-                        <input id="startDate" class="form-control" type="date" name="startDate" required
-                            #startDate="ngModel" [(ngModel)]="form.startDate" />
+                        <label for="eventStart">Event start</label>
+                        <input id="eventStart" class="form-control" type="date" name="eventStart" required
+                            #eventStart="ngModel" [(ngModel)]="form.eventStart" />
                     </div>
                 </div>
 
@@ -82,9 +82,9 @@
 
 
                     <div class="mb-3">
-                        <label for="endDate">Event end</label>
-                        <input type="date" class="form-control" id="endDate" name="endDate" [(ngModel)]="form.endDate"
-                            required #endDate="ngModel" tabindex="-1" />
+                        <label for="eventEnd">Event end</label>
+                        <input type="date" class="form-control" id="eventEnd" name="eventEnd" [(ngModel)]="form.eventEnd"
+                            required #eventEnd="ngModel" tabindex="-1" />
                     </div>
                 </div>
             </div>
