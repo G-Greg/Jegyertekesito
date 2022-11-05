@@ -11,5 +11,6 @@
         public string? EventEnd { get; set; }
         public int? NumberOfTickets { get; set; }
         public string? About { get; set; }
+        public string? ImgSource { get; set; }
     }
 }

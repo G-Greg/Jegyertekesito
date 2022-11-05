@@ -6,5 +6,6 @@ export interface Event{
     eventStart: string,
     eventEnd: string,
     numberOfTickets: number,
-    about: string
+    about: string,
+    imgSource: string
 }

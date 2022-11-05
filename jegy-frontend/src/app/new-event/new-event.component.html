@@ -83,10 +83,19 @@
 
                     <div class="mb-3">
                         <label for="eventEnd">Event end</label>
-                        <input type="date" class="form-control" id="eventEnd" name="eventEnd" [(ngModel)]="form.eventEnd"
-                            required #eventEnd="ngModel" tabindex="-1" />
+                        <input type="date" class="form-control" id="eventEnd" name="eventEnd"
+                            [(ngModel)]="form.eventEnd" required #eventEnd="ngModel" tabindex="-1" />
                     </div>
                 </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Default file input example</label>
+                <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onUploadPhoto($event)">
+
+                <img id="avatar" width="40" height="40">
+                <canvas id="mycanvas" width="40" height="40"></canvas>
             </div>
 
 

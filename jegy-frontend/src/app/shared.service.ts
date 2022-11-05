@@ -59,4 +59,8 @@ export class EventService {
     deleteEvent(value: any) {
         return this.http.delete(this.API_URL + 'api/events', value);
     }
+
+    /*uploadPhoto(val: any) {
+        return this.http.post(this.API_URL + 'api/events/saveImg', val);
+    }*/
 }
