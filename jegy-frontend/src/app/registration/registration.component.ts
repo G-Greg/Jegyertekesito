@@ -15,6 +15,8 @@ export class RegistrationComponent implements OnInit {
 
   }
 
+  error: boolean = false
+
   ngOnInit(): void {
   }
 
@@ -22,12 +24,13 @@ export class RegistrationComponent implements OnInit {
     let newUser = this.createUser(this.form)
     if (newUser !== null) {
       this.service.addUser(newUser).subscribe({
-        next: () => console.log("Registration success"), 
+        next: () => console.log("Registration success"),
         error: (err) => alert(err.error)
       })
     }
     else {
-      alert("Error: Please check that you have filled the form correctly")
+      this.error = true
+      setTimeout(() => {this.error = false}, 3000);
     }
   }
 

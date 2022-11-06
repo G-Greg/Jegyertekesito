@@ -41,7 +41,7 @@ export class UserService {
 })
 
 export class EventService {
-    readonly API_URL = "https://localhost:7211/";
+    private readonly API_URL = "https://localhost:7211/";
 
     constructor(private http: HttpClient) { }
     getEvents(): Observable<any> {
@@ -63,8 +63,4 @@ export class EventService {
     deleteEvent(value: any) {
         return this.http.delete(this.API_URL + 'api/events/' + value);
     }
-
-    /*uploadPhoto(val: any) {
-        return this.http.post(this.API_URL + 'api/events/saveImg', val);
-    }*/
 }

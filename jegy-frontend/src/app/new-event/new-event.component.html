@@ -98,8 +98,16 @@
 
 
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Create</button>
+                <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">{{id? "Update" : "Create"}}</button>
             </div>
+            <br>
+            <div class="alert alert-success" role="alert" *ngIf="response.state === 'Success'">
+                {{response.body}}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="response.state === 'Fail'">
+                {{response.body}}
+            </div>
+
         </form>
     </div>
     <div class="card-footer">

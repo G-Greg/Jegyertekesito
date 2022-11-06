@@ -8,9 +8,10 @@ import { Event } from '../models/event.model'
   templateUrl: './new-event.component.html',
   styleUrls: ['./new-event.component.css']
 })
+
 export class NewEventComponent implements OnInit {
-  PhotoFileName: string = '';
-  PhotoFilePath: string = '';
+
+  response = { state: 'Undefined', body: '' }
 
   form = { id: 0, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, about: '', imgSource: '' }
 
@@ -45,21 +46,34 @@ export class NewEventComponent implements OnInit {
   onSubmit() {
     let newEvent = this.createEvent()
     console.log(newEvent)
-    if (this.id) {
+
+    if (newEvent && this.id) {
       this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
         next: () => {
-          console.log("Updated")
+          this.response.state = 'Success'
+          this.response.body = 'Successfully created an event'
         },
-        error: (err) => console.log(err)
+        error: (err) => {
+          console.log(err)
+          this.response.state = 'Fail'
+          this.response.body = 'Error during update: ' + err.message
+        }
       })
     }
-    else {
+    else if (newEvent && !this.id) {
       this.service.addEvent(newEvent).subscribe({
         next: (data) => {
+          this.response.state = 'Success'
+          this.response.body = 'Successfully updated the event'
           console.log("Created", data)
         },
-        error: (err) => console.log(err)
+        error: (err) => {
+          this.response.state = 'Fail'
+          this.response.body = 'Error during create event: ' + err.message
+          console.log(err)
+        }
       })
+
     }
   }
 

@@ -3,7 +3,7 @@
     Sign Up
   </div>
   <div class="card-body">
-    <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate class="col-6">
 
       <div class="mb-3">
         <label for="name">
@@ -71,6 +71,9 @@
         <label class="form-check-label" for="terms">I agree to the <a href="/sign-up">Terms of Service</a></label>
       </div>
 
+      <div class="alert alert-warning" role="alert" *ngIf="error">
+        Error: Please check that you have filled out the form correctly
+      </div>
 
       <div class="d-grid gap-2 col-6 mx-auto">
         <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid || !terms.checked">Sign Up</button>
