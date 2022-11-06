@@ -38,11 +38,14 @@
           Email
         </label>
         <input type="text" class="form-control" id="email" name="email" placeholder="Enter email"
-          [(ngModel)]="form.email" required #email="ngModel" tabindex="-1">
+          [(ngModel)]="form.email" required email #email="ngModel" tabindex="-1">
 
         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="email.errors?.['required']">
             Email is required.
+          </div>
+          <div *ngIf="email.errors?.['email']">
+            Email must be valid.
           </div>
         </div>
       </div>

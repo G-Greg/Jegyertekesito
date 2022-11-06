@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using jegy_backend.Contexts;
 
-//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
@@ -15,13 +15,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<UserContext>(opt =>
+builder.Services.AddDbContext<DatabaseContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Jegyertekesito")));
-
-builder.Services.AddDbContext<EventContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("Jegyertekesito")));
-
-/*builder.Services.AddScoped<UserContext>();*/
 
 
 var app = builder.Build();

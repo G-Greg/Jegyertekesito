@@ -14,9 +14,9 @@ namespace jegy_backend.Controllers
     [ApiController]
     public class EventsController : ControllerBase
     {
-        private readonly EventContext _context;
+        private readonly DatabaseContext _context;
 
-        public EventsController(EventContext context)
+        public EventsController(DatabaseContext context)
         {
             _context = context;
         }

@@ -3,18 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace jegy_backend.Contexts
 {
-    public class EventContext : DbContext
+    public class DatabaseContext : DbContext
     {
 
-        public EventContext(DbContextOptions<EventContext> options) : base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
         }
 
+        public DbSet<User> Users { get; set; } = null!;
         public DbSet<Event> Events { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<Event>().ToTable("events");
         }
 
