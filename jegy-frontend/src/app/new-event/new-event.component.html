@@ -36,15 +36,26 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="category">Category</label>
-                        <select class="form-select" id="category" name="category" required #category="ngModel"
-                            [(ngModel)]="form.category">
-                            <option value="early bird">Early Bird</option>
-                            <option value="normal">Normal</option>
-                            <option value="vip">VIP</option>
-                            <option value="last minute">Last minute</option>
-                        </select>
+                    <div class="row">
+
+                        <div class="mb-3 col-8">
+                            <label for="category">Category</label>
+                            <select class="form-select" id="category" name="category" required #category="ngModel"
+                                [(ngModel)]="form.category">
+                                <option value="last minute">Last Minute</option>
+                                <option value="super bird">Super Early Bird</option>
+                                <option value="early bird">Early Bird</option>
+                                <option value="normal">Normal</option>
+                                <option value="vip">VIP</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 col-4">
+                            <label for="tickets">Number of tickets</label>
+                            <input type="number" class="form-control" id="tickets" name="tickets" min="1"
+                                [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
+                        </div>
+
                     </div>
 
 
@@ -57,14 +68,6 @@
 
                 <div class="col">
 
-                    <div class="mb-3">
-                        <label for="tickets">
-                            Number of tickets
-                        </label>
-                        <input type="number" class="form-control" id="tickets" name="tickets" min="1"
-                            [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
-
-                    </div>
 
 
                     <div class="mb-3">
@@ -80,6 +83,10 @@
                         </div>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload event image</label>
+                        <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onUploadPhoto($event)">
+                    </div>
 
                     <div class="mb-3">
                         <label for="eventEnd">Event end</label>
@@ -89,16 +96,16 @@
                 </div>
             </div>
 
-
             <div class="mb-3">
-                <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onUploadPhoto($event)">
-                <img id="avatar" width="200" height="100">
+                <label for="eventEnd">Preview</label>
+                <br>
+                <img id="avatar" width="300" height="150">
             </div>
 
 
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">{{id? "Update" : "Create"}}</button>
+                <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">{{id? "Update" :
+                    "Create"}}</button>
             </div>
             <br>
             <div class="alert alert-success" role="alert" *ngIf="response.state === 'Success'">

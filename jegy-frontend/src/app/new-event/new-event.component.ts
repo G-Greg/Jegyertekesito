@@ -51,7 +51,7 @@ export class NewEventComponent implements OnInit {
       this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
         next: () => {
           this.response.state = 'Success'
-          this.response.body = 'Successfully created an event'
+          this.response.body = 'Successfully updated the event'
         },
         error: (err) => {
           console.log(err)
@@ -64,7 +64,7 @@ export class NewEventComponent implements OnInit {
       this.service.addEvent(newEvent).subscribe({
         next: (data) => {
           this.response.state = 'Success'
-          this.response.body = 'Successfully updated the event'
+          this.response.body = 'Successfully created an event'
           console.log("Created", data)
         },
         error: (err) => {

@@ -9,10 +9,15 @@
 
 
   <div class="text-center">
+
+
     <div class="p-2" *ngIf="addEventShow">
       <button type="button" class="btn btn-secondary btn-lg m-5" routerLink="/new-event">Add new Event</button>
     </div>
 
+    <div class="spinner-border text-secondary" role="status" *ngIf="events.length === 0">
+      <span class="sr-only">Loading...</span>
+    </div>
 
     <ngb-datepicker class="m-5" *ngIf="!listView"></ngb-datepicker>
 
@@ -25,35 +30,41 @@
 
 
         <div *ngIf="i % 2 == 0" class="col-6 event" style="border-right: 2px solid rgb(255, 185, 255)">
-          <div class="row">
-            <div class="col-sm-8">
-              <img src="{{event.imgSource}}" class="card-img-top rounded">
-            </div>
-            <div class="col-sm-4">
-              <h2><span class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span></h2>
-              <div *ngIf="addEventShow">
-                <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
-                  <fa-icon [icon]="faPen"></fa-icon>
-                </a>
-                <br>
-                <a class="btn btn-danger">
-                  <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
-                </a>
+          <a (click)="showEvent()">
+            <div class="row">
+              <div class="col-sm-8">
+                <img src="{{event.imgSource}}" class="card-img-top rounded">
+              </div>
+              <div class="col-sm-4">
+                <h2><span
+                    class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span>
+                </h2>
+                <div *ngIf="addEventShow">
+                  <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
+                    <fa-icon [icon]="faPen"></fa-icon>
+                  </a>
+                  <br>
+                  <a class="btn btn-danger">
+                    <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-8">
-              <div class="text-right">
-                <h3>{{event.description}}</h3>
-                {{event.about}}
-                <br><fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
-                <br><fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="text-right">
+                  <h3>{{event.description}}</h3>
+                  {{event.about}}
+                  <br>
+                  <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+                  <br>
+                  <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+                </div>
+              </div>
+              <div class="col-sm-4">
               </div>
             </div>
-            <div class="col-sm-4">
-            </div>
-          </div>
+          </a>
         </div>
         <div *ngIf="i % 2 == 0" class="col-6" style="border-left: 2px solid rgb(255, 185, 255)"></div>
 
@@ -64,7 +75,9 @@
         <div *ngIf="i % 2 != 0" class="event col-6" style="border-left: 2px solid rgb(255, 185, 255)">
           <div class="row">
             <div class="col-sm-4">
-              <h2><span class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span></h2>
+              <h2><span
+                  class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span>
+              </h2>
               <div *ngIf="addEventShow">
                 <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
                   <fa-icon [icon]="faPen"></fa-icon>
@@ -85,8 +98,10 @@
             <div class="col-sm-8">
               <h3>{{event.description}}</h3>
               {{event.about}}
-              <br><fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
-              <br><fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+              <br>
+              <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+              <br>
+              <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
             </div>
           </div>
         </div>

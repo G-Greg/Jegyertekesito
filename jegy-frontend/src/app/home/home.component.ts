@@ -51,4 +51,8 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  showEvent(){
+    console.log("asd")
+  }
+
 }
