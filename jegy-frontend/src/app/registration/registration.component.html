@@ -9,8 +9,8 @@
         <label for="name">
           Name
         </label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
-          [(ngModel)]="form.name" required #name="ngModel" tabindex="-1">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" [(ngModel)]="form.name"
+          required #name="ngModel" tabindex="-1">
 
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="name.errors?.['required']">
@@ -66,7 +66,8 @@
       </div>
 
       <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="terms" name="terms" required [(ngModel)]="form.terms" #terms>
+        <input type="checkbox" class="form-check-input" id="terms" name="terms" required [(ngModel)]="form.terms"
+          #terms>
         <label class="form-check-label" for="terms">I agree to the <a href="/sign-up">Terms of Service</a></label>
       </div>
 

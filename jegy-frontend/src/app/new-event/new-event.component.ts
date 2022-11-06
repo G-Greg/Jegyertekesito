@@ -12,7 +12,7 @@ export class NewEventComponent implements OnInit {
   PhotoFileName: string = '';
   PhotoFilePath: string = '';
 
-  form = { id: null, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, about: '', imgSource: '' }
+  form = { id: 0, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, about: '', imgSource: '' }
 
   event?: Event;
   id = this.activatedRoute.snapshot.paramMap.get('id');

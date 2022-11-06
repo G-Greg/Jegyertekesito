@@ -6,27 +6,40 @@
     <label class="form-check-label" for="flexSwitchCheckDefault"> List view </label>
   </div>
 
-  
-  
+
+
   <div class="text-center">
     <div class="p-2" *ngIf="addEventShow">
       <button type="button" class="btn btn-secondary btn-lg m-5" routerLink="/new-event">Add new Event</button>
     </div>
+
+
     <ngb-datepicker class="m-5" *ngIf="!listView"></ngb-datepicker>
+
+
 
     <div *ngIf="listView">
       <div class="row" *ngFor="let event of events; index as i">
+
+
+
 
         <div *ngIf="i % 2 == 0" class="col-6 event" style="border-right: 2px solid rgb(255, 185, 255)">
           <div class="row">
             <div class="col-sm-8">
               <img src="{{event.imgSource}}" class="card-img-top rounded">
             </div>
-            <div class="col-sm-4" *ngIf="addEventShow">
-              <h2><span class="badge bg-secondary">11.<br>04.</span></h2>
-              <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}"><fa-icon [icon]="faPen"></fa-icon></a>
-              <br>
-              <a class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></a>
+            <div class="col-sm-4">
+              <h2><span class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span></h2>
+              <div *ngIf="addEventShow">
+                <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </a>
+                <br>
+                <a class="btn btn-danger">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </a>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -45,14 +58,22 @@
         <div *ngIf="i % 2 == 0" class="col-6" style="border-left: 2px solid rgb(255, 185, 255)"></div>
 
 
+
+
         <div *ngIf="i % 2 != 0" class="col-6" style="border-right: 2px solid rgb(255, 185, 255)"></div>
         <div *ngIf="i % 2 != 0" class="event col-6" style="border-left: 2px solid rgb(255, 185, 255)">
           <div class="row">
-            <div class="col-sm-4" *ngIf="addEventShow">
-              <h2><span class="badge bg-secondary">11.<br>05.</span></h2>
-              <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}"><fa-icon [icon]="faPen"></fa-icon></a>
-              <br>
-              <a class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></a>
+            <div class="col-sm-4">
+              <h2><span class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span></h2>
+              <div *ngIf="addEventShow">
+                <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
+                  <fa-icon [icon]="faPen"></fa-icon>
+                </a>
+                <br>
+                <a class="btn btn-danger">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </a>
+              </div>
             </div>
             <div class="col-sm-8">
               <img src="{{event.imgSource}}" class="card-img-top rounded">
@@ -68,6 +89,8 @@
             </div>
           </div>
         </div>
+
+
 
       </div>
     </div>
