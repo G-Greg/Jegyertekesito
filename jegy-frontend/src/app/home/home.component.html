@@ -37,7 +37,7 @@
                 </a>
                 <br>
                 <a class="btn btn-danger">
-                  <fa-icon [icon]="faTrash"></fa-icon>
+                  <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
                 </a>
               </div>
             </div>
@@ -46,9 +46,9 @@
             <div class="col-sm-8">
               <div class="text-right">
                 <h3>{{event.description}}</h3>
-                About: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Start: 2022.05.11. 22-00
-                Location: BME K épület
+                {{event.about}}
+                <br><fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+                <br><fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
               </div>
             </div>
             <div class="col-sm-4">
@@ -71,7 +71,7 @@
                 </a>
                 <br>
                 <a class="btn btn-danger">
-                  <fa-icon [icon]="faTrash"></fa-icon>
+                  <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
                 </a>
               </div>
             </div>
@@ -84,8 +84,9 @@
             </div>
             <div class="col-sm-8">
               <h3>{{event.description}}</h3>
-              Reveals an elements tooltip. Returns to the caller before the tooltip has actually been
-              shown (i.e. before the shown.bs.tooltip event occurs).
+              {{event.about}}
+              <br><fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+              <br><fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
             </div>
           </div>
         </div>
