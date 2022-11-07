@@ -13,7 +13,7 @@ export class NewEventComponent implements OnInit {
 
   response = { state: 'Undefined', body: '' }
 
-  form = { id: 0, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, about: '', imgSource: '' }
+  form = { id: 0, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, price: 0, about: '', imgSource: '' }
 
   event?: Event;
   id = this.activatedRoute.snapshot.paramMap.get('id');

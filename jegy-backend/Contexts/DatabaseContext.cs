@@ -13,11 +13,13 @@ namespace jegy_backend.Contexts
 
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Event> Events { get; set; } = null!;
+        public DbSet<Ticket> Tickets { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("users");
             modelBuilder.Entity<Event>().ToTable("events");
+            modelBuilder.Entity<Ticket>().ToTable("tickets");
         }
 
     }

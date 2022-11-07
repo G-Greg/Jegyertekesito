@@ -64,3 +64,33 @@ export class EventService {
         return this.http.delete(this.API_URL + 'api/events/' + value);
     }
 }
+
+
+@Injectable({
+    providedIn: 'root'
+})
+
+export class TicketService {
+    private readonly API_URL = "https://localhost:7211/";
+
+    constructor(private http: HttpClient) { }
+    getTickets(): Observable<any> {
+        return this.http.get(this.API_URL + 'api/tickets');
+    }
+
+    getTicket(value: any) {
+        return this.http.get(this.API_URL + 'api/tickets/' + value);
+    }
+
+    addTicket(value: any) {
+        return this.http.post(this.API_URL + 'api/tickets', value);
+    }
+
+    updateTicket(value: any) {
+        return this.http.put(this.API_URL + 'api/tickets/' + value.id, value.ticket);
+    }
+
+    deleteTicket(value: any) {
+        return this.http.delete(this.API_URL + 'api/tickets/' + value);
+    }
+}
