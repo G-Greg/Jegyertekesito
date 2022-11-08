@@ -1,11 +1,11 @@
 export interface Event{
     id: number,
+    ticketId: number,
     description: string,
     location: string,
-    category: string
     eventStart: string,
     eventEnd: string,
-    numberOfTickets: number,
     about: string,
+    numberOfTickets: number,
     imgSource: string
 }

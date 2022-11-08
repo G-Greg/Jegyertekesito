@@ -13,7 +13,26 @@ export class NewEventComponent implements OnInit {
 
   response = { state: 'Undefined', body: '' }
 
-  form = { id: 0, description: '', location: '', category: '', eventStart: '', eventEnd: '', tickets: 1, price: 0, about: '', imgSource: '' }
+  form = {
+    id: 0,
+    description: '',
+    location: '',
+    category: {
+      earlyBird: 0,
+      earlyBirdPrice: 0,
+      lastMinute: 0,
+      lastMinutePrice: 0,
+      normal: 0,
+      normalPrice: 0,
+      VIP: 0,
+      VIPPrice: 0
+    },
+    eventStart: '', eventEnd: '',
+    tickets: 0,
+    price: 0,
+    about: '',
+    imgSource: ''
+  }
 
   event?: Event;
   id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -28,9 +47,9 @@ export class NewEventComponent implements OnInit {
         next: (data: any) => {
           console.log("Success get", data)
           this.form.id = data.id
+
           this.form.description = data.description
           this.form.location = data.location
-          this.form.category = data.category
           this.form.eventStart = data.eventStart
           this.form.eventEnd = data.eventEnd
           this.form.tickets = data.numberOfTickets
@@ -41,6 +60,21 @@ export class NewEventComponent implements OnInit {
         error: (err) => console.log(err)
       })
     }
+  }
+
+  handleCatergory(event: any){
+    switch(event.value){ 
+      case "early bird": 
+      //TypeScript block of statements 
+      break;   
+      case "value2": 
+      //TypeScript block of statements 
+      break;      
+      default: 
+      //TypeScript block of statements 
+      break;   
+      }
+    console.log(event.value)
   }
 
   onSubmit() {
@@ -82,7 +116,7 @@ export class NewEventComponent implements OnInit {
       id: this.form.id,
       description: this.form.description,
       location: this.form.location,
-      category: this.form.category,
+      
       eventStart: this.form.eventStart,
       eventEnd: this.form.eventEnd,
       numberOfTickets: this.form.tickets,
@@ -94,7 +128,7 @@ export class NewEventComponent implements OnInit {
 
   eventIsValid(event: any): boolean {
     if (event.description !== null || event.location !== null ||
-      event.category !== null || event.eventStart !== null ||
+                                 event.eventStart !== null ||
       event.eventStart !== null || event.tickets !== null ||
       event.about !== null || event.imgSource !== null) {
       return true

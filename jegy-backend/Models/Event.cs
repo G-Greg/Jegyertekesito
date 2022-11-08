@@ -7,7 +7,6 @@
         public int? TicketId { get; set; }
         public string? Description { get; set; }
         public string? Location { get; set; }
-        public string? Category { get; set; }
         public string? EventStart { get; set; }
         public string? EventEnd { get; set; }
         public int? NumberOfTickets { get; set; }

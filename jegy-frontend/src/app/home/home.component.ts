@@ -31,8 +31,13 @@ export class HomeComponent implements OnInit {
       user.username === "admin" ? this.addEventShow = true : this.addEventShow = false
     }
 
-    this.eService.getEvents().subscribe(resposnse => {
-      this.events = resposnse.sort((a: Event, b: Event) => (a.eventStart > b.eventStart) ? 1 : -1);
+    this.eService.getEvents().subscribe({
+      next: (response) => {
+        this.events = response.sort((a: Event, b: Event) => (a.eventStart > b.eventStart) ? 1 : -1);
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
     //sort by date
   }
