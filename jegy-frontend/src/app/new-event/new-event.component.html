@@ -40,12 +40,13 @@
 
                         <div class="mb-3 col-5">
                             <label for="category">Category</label>
-                            <select class="form-select" id="category" name="category" required #category="ngModel"
-                                [(ngModel)]="form.category" (change)="handleCatergory($event.target)">
+                            <select class="form-select" id="category" name="category" required
+                                (change)="handleCategory($event.target)">
+                                <option selected value="default">Please select</option>
                                 <option value="early bird">Early Bird</option>
                                 <option value="last minute">Last Minute</option>
                                 <option value="normal">Normal</option>
-                                <option value="vip">VIP</option>
+                                <option value="VIP">VIP</option>
                             </select>
                         </div>
 

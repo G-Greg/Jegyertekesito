@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventService } from '../shared.service';
+import { EventService, TicketService } from '../shared.service';
 import { Event } from '../models/event.model'
 
 @Component({
@@ -15,17 +15,14 @@ export class NewEventComponent implements OnInit {
 
   form = {
     id: 0,
+    ticketId: 0,
     description: '',
     location: '',
     category: {
-      earlyBird: 0,
-      earlyBirdPrice: 0,
-      lastMinute: 0,
-      lastMinutePrice: 0,
-      normal: 0,
-      normalPrice: 0,
-      VIP: 0,
-      VIPPrice: 0
+      earlyBird: { db: 0, price: 0 },
+      lastMinute: { db: 0, price: 0 },
+      normal: { db: 0, price: 0 },
+      VIP: { db: 0, price: 0 },
     },
     eventStart: '', eventEnd: '',
     tickets: 0,
@@ -37,7 +34,7 @@ export class NewEventComponent implements OnInit {
   event?: Event;
   id = this.activatedRoute.snapshot.paramMap.get('id');
 
-  constructor(private service: EventService, private activatedRoute: ActivatedRoute) { }
+  constructor(private service: EventService, private refactorService: TicketService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -45,35 +42,47 @@ export class NewEventComponent implements OnInit {
     if (this.id) {
       this.service.getEvent(this.id).subscribe({
         next: (data: any) => {
-          console.log("Success get", data)
+          this.getTickets(data.ticketId)
           this.form.id = data.id
-
+          this.form.ticketId = data.ticketId
           this.form.description = data.description
           this.form.location = data.location
           this.form.eventStart = data.eventStart
           this.form.eventEnd = data.eventEnd
-          this.form.tickets = data.numberOfTickets
+
           this.form.about = data.about
           this.form.imgSource = data.imgSource
           img.src = data.imgSource
         },
-        error: (err) => console.log(err)
+        error: (err) => {
+          this.response.state = 'Fail'
+          this.response.body = 'Error during load the event: ' + err.message
+          console.log(err)
+        }
       })
     }
   }
 
-  handleCatergory(event: any){
-    switch(event.value){ 
-      case "early bird": 
-      //TypeScript block of statements 
-      break;   
-      case "value2": 
-      //TypeScript block of statements 
-      break;      
-      default: 
-      //TypeScript block of statements 
-      break;   
-      }
+  handleCategory(event: any) {
+    console.log(this.form.category)
+    switch (event.value) {
+      case "early bird":
+        this.form.tickets = this.form.category.earlyBird.db
+        this.form.price = this.form.category.earlyBird.price
+        break;
+      case "last minute":
+        this.form.tickets = this.form.category.lastMinute.db
+        this.form.price = this.form.category.lastMinute.price
+        break;
+      case "normal":
+        this.form.tickets = this.form.category.normal.db
+        this.form.price = this.form.category.normal.price
+        break;
+      case "VIP":
+        this.form.tickets = this.form.category.VIP.db
+        this.form.price = this.form.category.VIP.price
+        break;
+    }
     console.log(event.value)
   }
 
@@ -116,10 +125,10 @@ export class NewEventComponent implements OnInit {
       id: this.form.id,
       description: this.form.description,
       location: this.form.location,
-      
+
       eventStart: this.form.eventStart,
       eventEnd: this.form.eventEnd,
-      numberOfTickets: this.form.tickets,
+
       about: this.form.about,
       imgSource: this.form.imgSource
     }
@@ -128,8 +137,8 @@ export class NewEventComponent implements OnInit {
 
   eventIsValid(event: any): boolean {
     if (event.description !== null || event.location !== null ||
-                                 event.eventStart !== null ||
-      event.eventStart !== null || event.tickets !== null ||
+      event.eventStart !== null ||
+      event.eventStart !== null ||
       event.about !== null || event.imgSource !== null) {
       return true
     }
@@ -146,6 +155,27 @@ export class NewEventComponent implements OnInit {
       this.form.imgSource = uploadedImg
     });
     reader.readAsDataURL(event.target.files[0]);
+  }
+
+  getTickets(id: number) {
+    this.refactorService.getTicket(id).subscribe({
+      next: (data: any) => {
+        this.form.category.earlyBird.db = data.earlyBird,
+        this.form.category.earlyBird.price = data.earlyBirdPrice,
+        this.form.category.lastMinute.db = data.lastMinute,
+        this.form.category.lastMinute.price = data.lastMinutePrice,
+        this.form.category.normal.db = data.normal,
+        this.form.category.normal.price = data.normalPrice,
+        this.form.category.VIP.db = data.vip,
+        this.form.category.VIP.price = data.vipPrice,
+        console.log("Success get event & ticket")
+      },
+      error: (err) => {
+        this.response.state = 'Fail'
+        this.response.body = 'Error during load the ticket: ' + err.message
+        console.log(err)
+      }
+    })
   }
 
 }
