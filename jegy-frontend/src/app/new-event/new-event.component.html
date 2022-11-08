@@ -40,9 +40,9 @@
 
                         <div class="mb-3 col-5">
                             <label for="category">Category</label>
-                            <select class="form-select" id="category" name="category" required
+                            <select class="form-select" id="category" name="category" required #category
                                 (change)="handleCategory($event.target)">
-                                <option selected value="default">Please select</option>
+                                <option selected value="default" disabled>Please select</option>
                                 <option value="early bird">Early Bird</option>
                                 <option value="last minute">Last Minute</option>
                                 <option value="normal">Normal</option>
@@ -52,14 +52,14 @@
 
                         <div class="mb-3 col-3">
                             <label for="tickets">Price</label>
-                            <input type="number" class="form-control" id="price" name="price" min="1"
-                                [(ngModel)]="form.price" required #price="ngModel" tabindex="-1">
+                            <input type="number" class="form-control" id="price" name="price" min="1" (change)="handlePrice(category)"
+                                [(ngModel)]="form.price" required #price="ngModel" tabindex="-1" [disabled]="category.value == 'default'">
                         </div>
 
                         <div class="mb-3 col-4">
                             <label for="tickets">Number of tickets</label>
-                            <input type="number" class="form-control" id="tickets" name="tickets" min="1"
-                                [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
+                            <input type="number" class="form-control" id="tickets" name="tickets" min="1" (change)="handlePrice(category)"
+                                [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1" [disabled]="category.value == 'default'">
                         </div>
                     </div>
 

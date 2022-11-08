@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService, TicketService } from '../shared.service';
 import { Event } from '../models/event.model'
+import { Ticket } from '../models/ticket.model'
 
 @Component({
   selector: 'app-new-event',
@@ -64,7 +65,6 @@ export class NewEventComponent implements OnInit {
   }
 
   handleCategory(event: any) {
-    console.log(this.form.category)
     switch (event.value) {
       case "early bird":
         this.form.tickets = this.form.category.earlyBird.db
@@ -83,61 +83,84 @@ export class NewEventComponent implements OnInit {
         this.form.price = this.form.category.VIP.price
         break;
     }
-    console.log(event.value)
+  }
+
+  handlePrice(input: any) {
+    switch (input.value) {
+      case "early bird":
+        this.form.category.earlyBird.db = this.form.tickets
+        this.form.category.earlyBird.price = this.form.price
+        break;
+      case "last minute":
+        this.form.category.lastMinute.db = this.form.tickets
+        this.form.category.lastMinute.price = this.form.price
+        break;
+      case "normal":
+        this.form.category.normal.db = this.form.tickets
+        this.form.category.normal.price = this.form.price
+        break;
+      case "VIP":
+        this.form.category.VIP.db = this.form.tickets
+        this.form.category.VIP.price = this.form.price
+        break;
+    }
   }
 
   onSubmit() {
-    let newEvent = this.createEvent()
-    console.log(newEvent)
-
-    if (newEvent && this.id) {
-      this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
-        next: () => {
-          this.response.state = 'Success'
-          this.response.body = 'Successfully updated the event'
-        },
-        error: (err) => {
-          console.log(err)
-          this.response.state = 'Fail'
-          this.response.body = 'Error during update: ' + err.message
-        }
-      })
+    if (this.id) {
+      let newEvent = this.createEvent()
+      if (newEvent) {
+        this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
+          next: () => {
+            this.response.state = 'Success'
+            this.response.body = 'Successfully updated the event'
+          },
+          error: (err) => {
+            console.log(err)
+            this.response.state = 'Fail'
+            this.response.body = 'Error during update: ' + err.message
+          }
+        })
+      }
     }
-    else if (newEvent && !this.id) {
-      this.service.addEvent(newEvent).subscribe({
-        next: (data) => {
-          this.response.state = 'Success'
-          this.response.body = 'Successfully created an event'
-          console.log("Created", data)
-        },
-        error: (err) => {
-          this.response.state = 'Fail'
-          this.response.body = 'Error during create event: ' + err.message
-          console.log(err)
-        }
-      })
-
+    else if (!this.id) {
+      let newEvent = this.createEvent()
+      if (newEvent) {
+        this.service.addEvent(newEvent).subscribe({
+          next: (data) => {
+            this.response.state = 'Success'
+            this.response.body = 'Successfully created an event'
+            console.log("Created event:", data)
+          },
+          error: (err) => {
+            this.response.state = 'Fail'
+            this.response.body = 'Error during create event: ' + err.message
+            console.log(err)
+          }
+        })
+      }
     }
   }
 
   createEvent() {
-    let event = {
+    let asd = this.createTicket()
+    let event: Event = {
       id: this.form.id,
+      ticketId: asd,
       description: this.form.description,
       location: this.form.location,
-
       eventStart: this.form.eventStart,
       eventEnd: this.form.eventEnd,
-
       about: this.form.about,
       imgSource: this.form.imgSource
     }
+    debugger
     return this.eventIsValid(event) ? event : null
   }
 
   eventIsValid(event: any): boolean {
     if (event.description !== null || event.location !== null ||
-      event.eventStart !== null ||
+      event.eventStart !== null || event.ticketId !== 0 ||
       event.eventStart !== null ||
       event.about !== null || event.imgSource !== null) {
       return true
@@ -161,14 +184,14 @@ export class NewEventComponent implements OnInit {
     this.refactorService.getTicket(id).subscribe({
       next: (data: any) => {
         this.form.category.earlyBird.db = data.earlyBird,
-        this.form.category.earlyBird.price = data.earlyBirdPrice,
-        this.form.category.lastMinute.db = data.lastMinute,
-        this.form.category.lastMinute.price = data.lastMinutePrice,
-        this.form.category.normal.db = data.normal,
-        this.form.category.normal.price = data.normalPrice,
-        this.form.category.VIP.db = data.vip,
-        this.form.category.VIP.price = data.vipPrice,
-        console.log("Success get event & ticket")
+          this.form.category.earlyBird.price = data.earlyBirdPrice,
+          this.form.category.lastMinute.db = data.lastMinute,
+          this.form.category.lastMinute.price = data.lastMinutePrice,
+          this.form.category.normal.db = data.normal,
+          this.form.category.normal.price = data.normalPrice,
+          this.form.category.VIP.db = data.vip,
+          this.form.category.VIP.price = data.vipPrice,
+          console.log("Success get event & ticket")
       },
       error: (err) => {
         this.response.state = 'Fail'
@@ -176,6 +199,51 @@ export class NewEventComponent implements OnInit {
         console.log(err)
       }
     })
+  }
+
+  createTicket(): number {
+    let newTicket: Ticket = {
+      id: 0,
+      eventId: this.form.id,
+      earlyBird: this.form.category.earlyBird.db,
+      earlyBirdPrice: this.form.category.earlyBird.price,
+      lastMinute: this.form.category.lastMinute.db,
+      lastMinutePrice: this.form.category.lastMinute.price,
+      normal: this.form.category.normal.db,
+      normalPrice: this.form.category.normal.price,
+      VIP: this.form.category.VIP.db,
+      VIPPrice: this.form.category.VIP.price
+    }
+
+    if (this.ticketIsValid(newTicket)) {
+      this.refactorService.addTicket(newTicket).subscribe({
+        next: (data: any) => {
+          this.response.state = 'Success'
+          this.response.body = 'Successfully created the ticket'
+          console.log("Success create a ticket")
+          console.log(data.id)
+          return data.id
+        },
+        error: (err) => {
+          this.response.state = 'Fail'
+          this.response.body = 'Error during load the ticket: ' + err.message
+          console.log(err)
+        }
+      })
+    }
+    else {
+      console.log("invalid ticket")
+    }
+    return -1
+  }
+
+  ticketIsValid(ticket: Ticket): boolean {
+    if (!ticket.eventId || !ticket.earlyBird || !ticket.earlyBirdPrice ||
+      !ticket.lastMinute || !ticket.lastMinutePrice || !ticket.normal ||
+      !ticket.normalPrice || !ticket.VIP || !ticket.VIPPrice) {
+      return true
+    }
+    return false
   }
 
 }
