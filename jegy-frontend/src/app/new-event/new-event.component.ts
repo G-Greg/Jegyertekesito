@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService, TicketService } from '../shared.service';
 import { Event } from '../models/event.model'
 import { Ticket } from '../models/ticket.model'
-
 @Component({
   selector: 'app-new-event',
   templateUrl: './new-event.component.html',
@@ -85,7 +84,7 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  handlePrice(input: any) {
+  handleTicketProps(input: any) {
     switch (input.value) {
       case "early bird":
         this.form.category.earlyBird.db = this.form.tickets
@@ -106,9 +105,9 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.id) {
-      let newEvent = this.createEvent()
+      let newEvent = await this.createEvent()
       if (newEvent) {
         this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
           next: () => {
@@ -124,7 +123,8 @@ export class NewEventComponent implements OnInit {
       }
     }
     else if (!this.id) {
-      let newEvent = this.createEvent()
+      let newEvent = await this.createEvent()
+      debugger
       if (newEvent) {
         this.service.addEvent(newEvent).subscribe({
           next: (data) => {
@@ -142,11 +142,12 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  createEvent() {
-    let asd = this.createTicket()
+  async createEvent() {
+    await this.createTicket()
+    debugger
     let event: Event = {
       id: this.form.id,
-      ticketId: asd,
+      ticketId: this.form.ticketId,
       description: this.form.description,
       location: this.form.location,
       eventStart: this.form.eventStart,
@@ -154,7 +155,6 @@ export class NewEventComponent implements OnInit {
       about: this.form.about,
       imgSource: this.form.imgSource
     }
-    debugger
     return this.eventIsValid(event) ? event : null
   }
 
@@ -201,49 +201,49 @@ export class NewEventComponent implements OnInit {
     })
   }
 
-  createTicket(): number {
-    let newTicket: Ticket = {
-      id: 0,
-      eventId: this.form.id,
-      earlyBird: this.form.category.earlyBird.db,
-      earlyBirdPrice: this.form.category.earlyBird.price,
-      lastMinute: this.form.category.lastMinute.db,
-      lastMinutePrice: this.form.category.lastMinute.price,
-      normal: this.form.category.normal.db,
-      normalPrice: this.form.category.normal.price,
-      VIP: this.form.category.VIP.db,
-      VIPPrice: this.form.category.VIP.price
-    }
-
-    if (this.ticketIsValid(newTicket)) {
-      this.refactorService.addTicket(newTicket).subscribe({
-        next: (data: any) => {
-          this.response.state = 'Success'
-          this.response.body = 'Successfully created the ticket'
-          console.log("Success create a ticket")
-          console.log(data.id)
-          return data.id
-        },
-        error: (err) => {
-          this.response.state = 'Fail'
-          this.response.body = 'Error during load the ticket: ' + err.message
-          console.log(err)
-        }
-      })
-    }
-    else {
-      console.log("invalid ticket")
-    }
-    return -1
+  async createTicket() {
+    return new Promise((resolve, reject) => {
+      let newTicket: Ticket = {
+        id: 0,
+        eventId: this.form.id,
+        earlyBird: this.form.category.earlyBird.db,
+        earlyBirdPrice: this.form.category.earlyBird.price,
+        lastMinute: this.form.category.lastMinute.db,
+        lastMinutePrice: this.form.category.lastMinute.price,
+        normal: this.form.category.normal.db,
+        normalPrice: this.form.category.normal.price,
+        VIP: this.form.category.VIP.db,
+        VIPPrice: this.form.category.VIP.price
+      }
+      debugger
+      if (this.ticketIsValid(newTicket)) {
+        this.refactorService.addTicket(newTicket).subscribe({
+          next: (data: any) => {
+            this.form.ticketId = data.id
+            this.response.state = 'Success'
+            this.response.body = 'Successfully created the ticket'
+            console.log("Success create a ticket")
+            console.log(data.id)
+            resolve(data.id)
+          },
+          error: (err) => {
+            this.response.state = 'Fail'
+            this.response.body = 'Error during load the ticket: ' + err.message
+            console.log(err)
+            reject()
+          }
+        })
+      }
+      else {
+        console.log("invalid ticket")
+      }
+    });
   }
 
   ticketIsValid(ticket: Ticket): boolean {
-    if (!ticket.eventId || !ticket.earlyBird || !ticket.earlyBirdPrice ||
+    return !(!ticket.eventId || !ticket.earlyBird || !ticket.earlyBirdPrice ||
       !ticket.lastMinute || !ticket.lastMinutePrice || !ticket.normal ||
-      !ticket.normalPrice || !ticket.VIP || !ticket.VIPPrice) {
-      return true
-    }
-    return false
+      !ticket.normalPrice || !ticket.VIP || !ticket.VIPPrice)
   }
 
 }
