@@ -124,7 +124,6 @@ export class NewEventComponent implements OnInit {
     }
     else if (!this.id) {
       let newEvent = await this.createEvent()
-      debugger
       if (newEvent) {
         this.service.addEvent(newEvent).subscribe({
           next: (data) => {
@@ -144,7 +143,6 @@ export class NewEventComponent implements OnInit {
 
   async createEvent() {
     await this.createTicket()
-    debugger
     let event: Event = {
       id: this.form.id,
       ticketId: this.form.ticketId,
@@ -159,13 +157,9 @@ export class NewEventComponent implements OnInit {
   }
 
   eventIsValid(event: any): boolean {
-    if (event.description !== null || event.location !== null ||
-      event.eventStart !== null || event.ticketId !== 0 ||
-      event.eventStart !== null ||
-      event.about !== null || event.imgSource !== null) {
-      return true
-    }
-    return false
+    return this.isAllValid([event.description, event.location,
+      event.eventStart, event.ticketId,
+      event.eventStart, event.about, event.imgSource])
   }
 
   onUploadPhoto(event: any) {
@@ -215,7 +209,7 @@ export class NewEventComponent implements OnInit {
         VIP: this.form.category.VIP.db,
         VIPPrice: this.form.category.VIP.price
       }
-      debugger
+
       if (this.ticketIsValid(newTicket)) {
         this.refactorService.addTicket(newTicket).subscribe({
           next: (data: any) => {
@@ -241,9 +235,19 @@ export class NewEventComponent implements OnInit {
   }
 
   ticketIsValid(ticket: Ticket): boolean {
-    return !(!ticket.eventId || !ticket.earlyBird || !ticket.earlyBirdPrice ||
-      !ticket.lastMinute || !ticket.lastMinutePrice || !ticket.normal ||
-      !ticket.normalPrice || !ticket.VIP || !ticket.VIPPrice)
+    return this.isAllValid([ticket.eventId, ticket.earlyBird, ticket.earlyBirdPrice,
+      ticket.lastMinute, ticket.lastMinutePrice, ticket.normal, 
+      ticket.normalPrice, ticket.VIP, ticket.VIPPrice])
+  }
+
+  isAllValid(array: Array<any>) {
+    return array.every(prop => 
+      this.isValid(prop)
+    );
+  }
+
+  isValid(prop: any): boolean {
+    return prop !== undefined && prop !== null && prop !== NaN
   }
 
 }
