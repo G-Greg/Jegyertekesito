@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-header">
+        Tickets
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="{{ticket.db > 0 ? 'col-md-4' : ''}}" *ngFor="let ticket of tickets;">
+
+                <div *ngIf="ticket.db > 0">
+                    <div class="card mb-4">
+                        <img class="card-img-top" [src]="event.imgSource">
+                        <div class="card-body">
+                            {{event.description}}
+                            {{ticket.name}}
+                            price:{{ticket.price}} Ft
+                            <div class="d-grid gap-2 col-4 mx-auto">
+                                <button class="btn btn-primary btn-block">Buy</button>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="card-footer">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-secondary btn-block" (click)="close.emit()">Close</button>
+        </div>
+    </div>
+</div>

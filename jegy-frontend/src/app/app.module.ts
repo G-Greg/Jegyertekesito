@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SummaryComponent } from './summary/summary.component';
 import { UserService, EventService } from './shared.service';
 import { StorageService } from './storage.service';
+import { TicketsComponent } from './tickets/tickets.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { StorageService } from './storage.service';
     LoginComponent,
     RegistrationComponent,
     NewEventComponent,
-    SummaryComponent
+    SummaryComponent,
+    TicketsComponent
   ],
   imports: [
     BrowserModule,

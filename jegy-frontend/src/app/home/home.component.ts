@@ -4,6 +4,8 @@ import { EventService } from '../shared.service';
 import { faPen, faTrash, faLocationDot, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { Event } from '../models/event.model'
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TicketsComponent } from '../tickets/tickets.component';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   events: Event[] = [];
 
-  constructor(private router: Router, private sService: StorageService, private eService: EventService) { }
+  constructor(private router: Router, private sService: StorageService, private eService: EventService, private modalService: NgbModal) { }
 
 
   ngOnInit(): void {
@@ -56,8 +58,10 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  showEvent(){
-    console.log("asd")
+  showEvent(thisEvent: any){
+      let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'xl' });
+      (login.componentInstance as TicketsComponent).initShow({ close: () => login.close() });
+      login.componentInstance.event = thisEvent
   }
 
 }
