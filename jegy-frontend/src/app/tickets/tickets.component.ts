@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Event } from '../models/event.model'
 import { Ticket } from '../models/ticket.model';
 import { TicketService } from '../shared.service';
@@ -19,9 +20,8 @@ export class TicketsComponent implements OnInit {
   tickets: any[] = [];
 
 
-
-  constructor(private tService: TicketService) {
-   }
+  constructor(private tService: TicketService, private router: Router) {
+  }
 
   ngOnInit(): void {
 
@@ -32,7 +32,7 @@ export class TicketsComponent implements OnInit {
     this.tService.getTicket(this.event?.ticketId).subscribe({
       next: (data: any) => {
         this.fillTicketsArray(data)
-        console.log("Success ticket")
+        console.log("Success get ticket")
       },
       error: (err) => {
         console.log(err)
@@ -45,9 +45,15 @@ export class TicketsComponent implements OnInit {
   }
 
   fillTicketsArray(data: any) {
-    this.tickets.push({ name: "Early Bird", db: data.earlyBird, price: data.earlyBirdPrice })
-    this.tickets.push({ name: "Last Minute", db: data.lastMinute, price: data.lastMinutePrice })
-    this.tickets.push({ name: "Normal", db: data.normal, price: data.normalPrice })
-    this.tickets.push({ name: "VIP", db: data.vip, price: data.vipPrice })
+    data.earlyBird > 0 ? this.tickets.push({ id: data.id, name: "Early Bird", db: data.earlyBird, price: data.earlyBirdPrice }) : null
+    data.lastMinute > 0 ? this.tickets.push({ id: data.id, name: "Last Minute", db: data.lastMinute, price: data.lastMinutePrice }) : null
+    data.normal > 0 ? this.tickets.push({ id: data.id, name: "Normal", db: data.normal, price: data.normalPrice }) : null
+    data.vip > 0 ? this.tickets.push({ id: data.id, name: "VIP", db: data.vip, price: data.vipPrice }) : null
+  }
+
+  toSummaryPage(ticket: Ticket) {
+    console.log(ticket)
+    this.close.emit()
+    this.router.navigate(['event', this.event.id, 'ticket', ticket.id, 'summary']);
   }
 }

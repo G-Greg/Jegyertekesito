@@ -32,7 +32,7 @@ export class AppComponent {
   }
 
   initJegyertekesito() {
-    //this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
     const loggedUser = this.sService.getUser()
     if(loggedUser !== null){
       this.username = loggedUser.username
