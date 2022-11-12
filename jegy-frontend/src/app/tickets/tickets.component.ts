@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Event } from '../models/event.model'
 import { Ticket } from '../models/ticket.model';
 import { TicketService } from '../shared.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-tickets',
@@ -20,7 +21,7 @@ export class TicketsComponent implements OnInit {
   tickets: any[] = [];
 
 
-  constructor(private tService: TicketService, private router: Router) {
+  constructor(private tService: TicketService, private sService: StorageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,7 +53,16 @@ export class TicketsComponent implements OnInit {
   }
 
   toSummaryPage(category: string) {
-    this.close.emit()
-    this.router.navigate(['event', this.event.id, 'category', category, 'summary']);
+    if (this.userIsLogged()) {
+      this.close.emit()
+      this.router.navigate(['event', this.event.id, 'category', category, 'summary']);
+    }
+    else{
+      alert("Please login first!")
+    }
+  }
+
+  userIsLogged(): boolean {
+    return this.sService.getUser() ? true : false
   }
 }
