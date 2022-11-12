@@ -1,4 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Ticket } from '../models/ticket.model';
+import { Event } from '../models/event.model';
+import { EventService, TicketService } from '../shared.service';
 
 @Component({
   selector: 'app-summary',
@@ -6,17 +10,88 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-  form = { description: '', location: '', category: null, startDate: null, about: '', tickets: 1, endDate: null }
-  
+
   @Output()
   close = new EventEmitter<void>();
-  constructor() { }
+
+  eventId: number = 0;
+  event: Event = { id: 0, ticketId: 0, about: '', description: '', eventStart: '', eventEnd: '', imgSource: '', location: '' }
+  ticket: Ticket = { id: 0, eventId: 0, earlyBird: 0, earlyBirdPrice: 0, lastMinute: 0, lastMinutePrice: 0, normal: 0, normalPrice: 0, VIP: 0, VIPPrice: 0 }
+  category: string = ''
+  db: number = 0
+  price: number = 0
+  summary: number = 0
+  ticketNum: number = 1
+
+  constructor(private activatedRoute: ActivatedRoute, private eService: EventService, private tService: TicketService) { }
 
   ngOnInit(): void {
+    this.eventId = parseInt(this.activatedRoute.snapshot.paramMap.get('eventId')!);
+    this.category = this.activatedRoute.snapshot.paramMap.get('category')!;
+
+    this.getEvent(this.eventId)
+
+  }
+  onSubmit() {
+    console.log("this.form")
   }
 
-  onSubmit() {
-    console.log(this.form)
+  getEvent(id: number) {
+    this.eService.getEvent(id).subscribe({
+      next: (response: any) => {
+        this.fillEvent(response)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+  getTicket(id: number) {
+    this.tService.getTicket(id).subscribe({
+      next: (response: any) => {
+        this.fillTicket(response)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
+  fillEvent(event: any) {
+    this.event.about = event.about
+    this.event.description = event.description
+    this.event.eventStart = event.eventStart
+    this.event.eventEnd = event.eventEnd
+    this.event.location = event.location
+    this.event.imgSource = event.imgSource
+    this.getTicket(event.ticketId)
+  }
+
+
+  fillTicket(ticket: any) {
+    switch (this.category) {
+      case "Early bird":
+        this.db = ticket.earlyBird
+        this.price = ticket.earlyBirdPrice
+        break;
+      case "Last Minute":
+        this.db = ticket.lastMinute
+        this.price = ticket.lastMinutePrice
+        break;
+      case "Normal":
+        this.db = ticket.normal
+        this.price = ticket.normalPrice
+        break;
+      case "VIP":
+        this.db = ticket.VIP
+        this.price = ticket.VIPPrice
+        break;
+    }
+    this.summary = this.ticketNum * this.price
+  }
+
+  calculate(){
+    this.summary = this.ticketNum * this.price
   }
 
 }

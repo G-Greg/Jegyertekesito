@@ -9,16 +9,24 @@
                 <div class="col">
 
                     <div class="mb-3">
-                        <label for="name">Name</label>
+                        <label for="name">Description</label>
+                        <div>{{event.description}}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category">Category</label>
+                        <div>{{category}}</div>
                     </div>
 
                     <div class="mb-3">
                         <label for="location">Location</label>
+                        <div>{{event.location}}</div>
                     </div>
 
 
                     <div class="mb-3">
                         <label for="startDate">Date</label>
+                        <div>{{event.eventStart === event.eventEnd ? event.eventStart : event.eventStart + " to " + event.eventEnd}}</div>
                     </div>
                 </div>
 
@@ -29,14 +37,15 @@
                                 <label for="tickets">
                                     Number of tickets
                                 </label>
-                                <input type="number" class="form-control" id="tickets" name="tickets" min="1"
-                                    [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1">
+                                <input type="number" class="form-control" id="ticketNum" name="ticketNum"
+                                 min="1" tabindex="-1" (change)="calculate()" [(ngModel)]="ticketNum">
 
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
                                 <label for="summary">Summary</label>
+                                <div>{{summary}} Ft</div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +55,7 @@
             <hr>
             <div class="row">
                 <div class="d-grid col-2">
-                    <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Purchase</button>
+                    <button class="btn btn-primary" type="submit" >Purchase</button>
                 </div>
 
             </div>

@@ -16,7 +16,7 @@
                         <br>
                         {{ticket.price}} Ft
                         <div class="d-grid gap-2 col-4 mx-auto">
-                            <button class="btn btn-primary btn-block" (click)="toSummaryPage(ticket)" routerLink="/event/summary/{{i}}">Buy</button>
+                            <button class="btn btn-primary btn-block" (click)="toSummaryPage(ticket.name)">Buy</button>
                         </div>
                     </div>
                     <div class="card-footer">

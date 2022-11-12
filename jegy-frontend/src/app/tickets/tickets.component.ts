@@ -51,9 +51,8 @@ export class TicketsComponent implements OnInit {
     data.vip > 0 ? this.tickets.push({ id: data.id, name: "VIP", db: data.vip, price: data.vipPrice }) : null
   }
 
-  toSummaryPage(ticket: Ticket) {
-    console.log(ticket)
+  toSummaryPage(category: string) {
     this.close.emit()
-    this.router.navigate(['event', this.event.id, 'ticket', ticket.id, 'summary']);
+    this.router.navigate(['event', this.event.id, 'category', category, 'summary']);
   }
 }
