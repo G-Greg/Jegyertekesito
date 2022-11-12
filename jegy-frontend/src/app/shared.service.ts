@@ -90,6 +90,10 @@ export class TicketService {
         return this.http.put(this.API_URL + 'api/tickets/' + value.id, value.ticket);
     }
 
+    buyTicket(value: any){
+        return this.http.put(this.API_URL + 'api/tickets/buy/' + value.id, value.data);
+    }
+
     deleteTicket(value: any) {
         return this.http.delete(this.API_URL + 'api/tickets/' + value);
     }

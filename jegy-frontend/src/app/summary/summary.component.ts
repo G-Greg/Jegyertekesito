@@ -16,12 +16,12 @@ export class SummaryComponent implements OnInit {
 
   eventId: number = 0;
   event: Event = { id: 0, ticketId: 0, about: '', description: '', eventStart: '', eventEnd: '', imgSource: '', location: '' }
-  ticket: Ticket = { id: 0, eventId: 0, earlyBird: 0, earlyBirdPrice: 0, lastMinute: 0, lastMinutePrice: 0, normal: 0, normalPrice: 0, VIP: 0, VIPPrice: 0 }
   category: string = ''
   db: number = 0
   price: number = 0
   summary: number = 0
   ticketNum: number = 1
+  alert = { state: 'Undefined', body: '' }
 
   constructor(private activatedRoute: ActivatedRoute, private eService: EventService, private tService: TicketService) { }
 
@@ -58,6 +58,8 @@ export class SummaryComponent implements OnInit {
   }
 
   fillEvent(event: any) {
+    this.event.id = event.id
+    this.event.ticketId = event.ticketId
     this.event.about = event.about
     this.event.description = event.description
     this.event.eventStart = event.eventStart
@@ -70,7 +72,7 @@ export class SummaryComponent implements OnInit {
 
   fillTicket(ticket: any) {
     switch (this.category) {
-      case "Early bird":
+      case "Early Bird":
         this.db = ticket.earlyBird
         this.price = ticket.earlyBirdPrice
         break;
@@ -83,15 +85,38 @@ export class SummaryComponent implements OnInit {
         this.price = ticket.normalPrice
         break;
       case "VIP":
-        this.db = ticket.VIP
-        this.price = ticket.VIPPrice
+        this.db = ticket.vip
+        this.price = ticket.vipPrice
         break;
     }
     this.summary = this.ticketNum * this.price
   }
 
-  calculate(){
+  calculate() {
     this.summary = this.ticketNum * this.price
   }
 
+  purchase() {
+    if(this.isThereEnoughTicket()){
+      this.tService.buyTicket({id: this.event.ticketId, data:[this.category, this.ticketNum.toString()]}).subscribe({
+        next: () => {
+          this.alert.state = 'Success'
+          this.alert.body = 'Successfully purchased!'
+        },
+        error: (err) => {
+          console.log(err)
+          this.alert.state = 'Fail'
+          this.alert.body = 'Error during the purchase: ' + err.message
+        }
+      })
+    }
+    else{
+      this.alert.state = 'Fail'
+      this.alert.body = `Fail: You can't buy that many tickets`
+    }
+  }
+
+  isThereEnoughTicket(): boolean {
+    return this.ticketNum <= this.db ? true : false
+  }
 }
