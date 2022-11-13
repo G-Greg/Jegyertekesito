@@ -32,6 +32,7 @@ export class NewEventComponent implements OnInit {
   }
 
   event?: Event;
+  ticket: Ticket = { id: 0, eventId: 0, earlyBird: 0, earlyBirdPrice: 0, lastMinute: 0, lastMinutePrice: 0, normal: 0, normalPrice: 0, VIP: 0, VIPPrice: 0 };
   id = this.activatedRoute.snapshot.paramMap.get('id');
 
   constructor(private service: EventService, private refactorService: TicketService, private activatedRoute: ActivatedRoute) { }
@@ -107,7 +108,7 @@ export class NewEventComponent implements OnInit {
 
   async onSubmit() {
     if (this.id) {
-      let newEvent = await this.createEvent()
+      let newEvent = await this.updateEvent()
       if (newEvent) {
         this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
           next: () => {
@@ -141,6 +142,21 @@ export class NewEventComponent implements OnInit {
     }
   }
 
+  async updateEvent() {
+    await this.updateTicket()
+    let event: Event = {
+      id: this.form.id,
+      ticketId: this.form.ticketId,
+      description: this.form.description,
+      location: this.form.location,
+      eventStart: this.form.eventStart,
+      eventEnd: this.form.eventEnd,
+      about: this.form.about,
+      imgSource: this.form.imgSource
+    }
+    return this.eventIsValid(event) ? event : null
+  }
+
   async createEvent() {
     await this.createTicket()
     let event: Event = {
@@ -158,8 +174,8 @@ export class NewEventComponent implements OnInit {
 
   eventIsValid(event: any): boolean {
     return this.isAllValid([event.description, event.location,
-      event.eventStart, event.ticketId,
-      event.eventStart, event.about, event.imgSource])
+    event.eventStart, event.ticketId,
+    event.eventStart, event.about, event.imgSource])
   }
 
   onUploadPhoto(event: any) {
@@ -177,15 +193,16 @@ export class NewEventComponent implements OnInit {
   getTickets(id: number) {
     this.refactorService.getTicket(id).subscribe({
       next: (data: any) => {
-        this.form.category.earlyBird.db = data.earlyBird,
-          this.form.category.earlyBird.price = data.earlyBirdPrice,
-          this.form.category.lastMinute.db = data.lastMinute,
-          this.form.category.lastMinute.price = data.lastMinutePrice,
-          this.form.category.normal.db = data.normal,
-          this.form.category.normal.price = data.normalPrice,
-          this.form.category.VIP.db = data.vip,
-          this.form.category.VIP.price = data.vipPrice,
-          console.log("Success get event & ticket")
+        this.ticket.id = data.id
+        this.form.category.earlyBird.db = data.earlyBird
+        this.form.category.earlyBird.price = data.earlyBirdPrice
+        this.form.category.lastMinute.db = data.lastMinute
+        this.form.category.lastMinute.price = data.lastMinutePrice
+        this.form.category.normal.db = data.normal
+        this.form.category.normal.price = data.normalPrice
+        this.form.category.VIP.db = data.vip
+        this.form.category.VIP.price = data.vipPrice
+        console.log("Success get event & ticket")
       },
       error: (err) => {
         this.response.state = 'Fail'
@@ -194,6 +211,46 @@ export class NewEventComponent implements OnInit {
       }
     })
   }
+
+
+  async updateTicket() {
+    return new Promise((resolve, reject) => {
+      let newTicket: Ticket = {
+        id: this.ticket.id,
+        eventId: this.form.id,
+        earlyBird: this.form.category.earlyBird.db,
+        earlyBirdPrice: this.form.category.earlyBird.price,
+        lastMinute: this.form.category.lastMinute.db,
+        lastMinutePrice: this.form.category.lastMinute.price,
+        normal: this.form.category.normal.db,
+        normalPrice: this.form.category.normal.price,
+        VIP: this.form.category.VIP.db,
+        VIPPrice: this.form.category.VIP.price
+      }
+
+      if (this.ticketIsValid(newTicket)) {
+        this.refactorService.updateTicket({ id: this.ticket.id, ticket: newTicket }).subscribe({
+          next: (data: any) => {
+            this.response.state = 'Success'
+            this.response.body = 'Successfully updated the ticket'
+            console.log("Success update a ticket")
+            console.log(data)
+            resolve(data)
+          },
+          error: (err) => {
+            this.response.state = 'Fail'
+            this.response.body = 'Error during update the ticket: ' + err.message
+            console.log(err)
+            reject()
+          }
+        })
+      }
+      else {
+        console.log("invalid ticket")
+      }
+    });
+  }
+
 
   async createTicket() {
     return new Promise((resolve, reject) => {
@@ -236,12 +293,12 @@ export class NewEventComponent implements OnInit {
 
   ticketIsValid(ticket: Ticket): boolean {
     return this.isAllValid([ticket.eventId, ticket.earlyBird, ticket.earlyBirdPrice,
-      ticket.lastMinute, ticket.lastMinutePrice, ticket.normal, 
-      ticket.normalPrice, ticket.VIP, ticket.VIPPrice])
+    ticket.lastMinute, ticket.lastMinutePrice, ticket.normal,
+    ticket.normalPrice, ticket.VIP, ticket.VIPPrice])
   }
 
   isAllValid(array: Array<any>) {
-    return array.every(prop => 
+    return array.every(prop =>
       this.isValid(prop)
     );
   }
