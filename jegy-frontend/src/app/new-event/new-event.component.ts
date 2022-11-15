@@ -234,7 +234,6 @@ export class NewEventComponent implements OnInit {
             this.response.state = 'Success'
             this.response.body = 'Successfully updated the ticket'
             console.log("Success update a ticket")
-            console.log(data)
             resolve(data)
           },
           error: (err) => {

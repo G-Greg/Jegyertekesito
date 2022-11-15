@@ -17,9 +17,13 @@
 
     <div class="spinner-border text-secondary" role="status" *ngIf="events.length === 0">
       <span class="sr-only">Loading...</span>
+      <br>
     </div>
 
-    <ngb-datepicker class="m-5" *ngIf="!listView"></ngb-datepicker>
+
+    <div *ngIf="!listView">
+      <ngb-datepicker class="m-5"></ngb-datepicker>
+    </div>
 
 
 

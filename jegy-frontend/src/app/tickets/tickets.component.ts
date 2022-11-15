@@ -14,6 +14,7 @@ export class TicketsComponent implements OnInit {
   @Output()
   close = new EventEmitter<void>();
 
+  show = false;
 
   @Input()
   event: any;
@@ -58,7 +59,7 @@ export class TicketsComponent implements OnInit {
       this.router.navigate(['event', this.event.id, 'category', category, 'summary']);
     }
     else{
-      alert("Please login first!")
+      this.show = true;
     }
   }
 
