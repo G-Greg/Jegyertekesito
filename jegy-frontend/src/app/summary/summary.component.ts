@@ -2,7 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from '../models/ticket.model';
 import { Event } from '../models/event.model';
-import { EventService, TicketService } from '../shared.service';
+import { TicketService } from '../services/ticket.service';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-summary',

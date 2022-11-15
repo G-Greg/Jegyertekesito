@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventService, TicketService } from '../shared.service';
+import { TicketService } from '../services/ticket.service';
+import { EventService } from '../services/event.service';
 import { Event } from '../models/event.model'
 import { Ticket } from '../models/ticket.model'
 @Component({
@@ -35,13 +36,13 @@ export class NewEventComponent implements OnInit {
   ticket: Ticket = { id: 0, eventId: 0, earlyBird: 0, earlyBirdPrice: 0, lastMinute: 0, lastMinutePrice: 0, normal: 0, normalPrice: 0, VIP: 0, VIPPrice: 0 };
   id = this.activatedRoute.snapshot.paramMap.get('id');
 
-  constructor(private service: EventService, private refactorService: TicketService, private activatedRoute: ActivatedRoute) { }
+  constructor(private eService: EventService, private tService: TicketService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 
     let img = <HTMLImageElement>document.getElementById('avatar');
     if (this.id) {
-      this.service.getEvent(this.id).subscribe({
+      this.eService.getEvent(this.id).subscribe({
         next: (data: any) => {
           this.getTickets(data.ticketId)
           this.form.id = data.id
@@ -110,7 +111,7 @@ export class NewEventComponent implements OnInit {
     if (this.id) {
       let newEvent = await this.updateEvent()
       if (newEvent) {
-        this.service.updateEvent({ id: this.id, event: newEvent }).subscribe({
+        this.eService.updateEvent({ id: this.id, event: newEvent }).subscribe({
           next: () => {
             this.response.state = 'Success'
             this.response.body = 'Successfully updated the event'
@@ -126,7 +127,7 @@ export class NewEventComponent implements OnInit {
     else if (!this.id) {
       let newEvent = await this.createEvent()
       if (newEvent) {
-        this.service.addEvent(newEvent).subscribe({
+        this.eService.addEvent(newEvent).subscribe({
           next: (data) => {
             this.response.state = 'Success'
             this.response.body = 'Successfully created an event'
@@ -191,7 +192,7 @@ export class NewEventComponent implements OnInit {
   }
 
   getTickets(id: number) {
-    this.refactorService.getTicket(id).subscribe({
+    this.tService.getTicket(id).subscribe({
       next: (data: any) => {
         this.ticket.id = data.id
         this.form.category.earlyBird.db = data.earlyBird
@@ -229,7 +230,7 @@ export class NewEventComponent implements OnInit {
       }
 
       if (this.ticketIsValid(newTicket)) {
-        this.refactorService.updateTicket({ id: this.ticket.id, ticket: newTicket }).subscribe({
+        this.tService.updateTicket({ id: this.ticket.id, ticket: newTicket }).subscribe({
           next: (data: any) => {
             this.response.state = 'Success'
             this.response.body = 'Successfully updated the ticket'
@@ -267,7 +268,7 @@ export class NewEventComponent implements OnInit {
       }
 
       if (this.ticketIsValid(newTicket)) {
-        this.refactorService.addTicket(newTicket).subscribe({
+        this.tService.addTicket(newTicket).subscribe({
           next: (data: any) => {
             this.form.ticketId = data.id
             this.response.state = 'Success'

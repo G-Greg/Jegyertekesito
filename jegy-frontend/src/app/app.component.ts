@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faTicket, faUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
-import { StorageService } from './storage.service';
+import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'app-root',

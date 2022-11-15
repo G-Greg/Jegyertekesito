@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { UserService } from 'src/app/shared.service'
+import { UserService } from 'src/app/services/user.service'
 
 @Component({
   selector: 'app-registration',

@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { NewEventComponent } from './new-event/new-event.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SummaryComponent } from './summary/summary.component';
-import { UserService, EventService } from './shared.service';
-import { StorageService } from './storage.service';
+import { UserService } from './services/user.service';
+import { EventService } from './services/event.service';
+import { TicketService } from './services/ticket.service';
+import { StorageService } from './services/storage.service';
 import { TicketsComponent } from './tickets/tickets.component';
 
 @NgModule({
@@ -35,7 +37,7 @@ import { TicketsComponent } from './tickets/tickets.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, EventService, StorageService],
+  providers: [UserService, EventService, TicketService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

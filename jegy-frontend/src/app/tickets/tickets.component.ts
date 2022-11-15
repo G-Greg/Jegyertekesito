@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Event } from '../models/event.model'
 import { Ticket } from '../models/ticket.model';
-import { TicketService } from '../shared.service';
-import { StorageService } from '../storage.service';
+import { TicketService } from '../services/ticket.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-tickets',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../storage.service';
-import { EventService } from '../shared.service';
+import { StorageService } from '../services/storage.service';
+import { EventService } from '../services/event.service';
 import { faPen, faTrash, faLocationDot, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { Event } from '../models/event.model'
 import { Router } from '@angular/router';
