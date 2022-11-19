@@ -4,6 +4,7 @@ import { Ticket } from '../models/ticket.model';
 import { Event } from '../models/event.model';
 import { TicketService } from '../services/ticket.service';
 import { EventService } from '../services/event.service';
+import { faSquareCaretDown, faAlignLeft, faMoneyBill1, faTicket, faBars, faLocationDot, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-summary',
@@ -14,6 +15,13 @@ export class SummaryComponent implements OnInit {
 
   @Output()
   close = new EventEmitter<void>();
+
+  faBars = faBars;
+  faMoneyBill1 = faMoneyBill1;
+  faTicket = faTicket;
+  faSquareCaretDown = faSquareCaretDown;
+  faLocationDot = faLocationDot;
+  faCalendarDay = faCalendarDay;
 
   eventId: number = 0;
   event: Event = { id: 0, ticketId: 0, about: '', description: '', eventStart: '', eventEnd: '', imgSource: '', location: '' }

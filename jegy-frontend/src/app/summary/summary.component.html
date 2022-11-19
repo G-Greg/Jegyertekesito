@@ -8,23 +8,23 @@
             <div class="col">
 
                 <div class="mb-3">
-                    <label class="title" for="name">Description</label>
+                    <label class="title" for="name"><fa-icon [icon]="faBars"></fa-icon> Description</label>
                     <div>{{event.description}}</div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="title" for="category">Category</label>
+                    <label class="title" for="category"><fa-icon [icon]="faSquareCaretDown"></fa-icon> Category</label>
                     <div>{{category}}</div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="title" for="location">Location</label>
+                    <label class="title" for="location"><fa-icon [icon]="faLocationDot"></fa-icon> Location</label>
                     <div>{{event.location}}</div>
                 </div>
 
 
                 <div class="mb-3">
-                    <label class="title" for="startDate">Date</label>
+                    <label class="title" for="startDate"><fa-icon [icon]="faCalendarDay"></fa-icon> Date</label>
                     <div>{{event.eventStart === event.eventEnd ? event.eventStart : event.eventStart + " to " +
                         event.eventEnd}}</div>
                 </div>
@@ -33,7 +33,7 @@
             <div class="col">
                 <div class="mb-3">
                     <label class="title" for="tickets">
-                        Number of tickets
+                        <fa-icon [icon]="faTicket"></fa-icon> Number of tickets
                     </label>
                     <div class="row">
                         <div class="col-1">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <label class="title" for="summary">Summary</label>
+                        <label class="title" for="summary"><fa-icon [icon]="faMoneyBill1"></fa-icon> Summary</label>
                         <div class="price">{{summary}} Ft</div>
                     </div>
                 </div>
