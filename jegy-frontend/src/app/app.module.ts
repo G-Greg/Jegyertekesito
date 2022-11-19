@@ -17,6 +17,7 @@ import { EventService } from './services/event.service';
 import { TicketService } from './services/ticket.service';
 import { StorageService } from './services/storage.service';
 import { TicketsComponent } from './tickets/tickets.component';
+import { EventsListComponent } from './events-list/events-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TicketsComponent } from './tickets/tickets.component';
     RegistrationComponent,
     NewEventComponent,
     SummaryComponent,
-    TicketsComponent
+    TicketsComponent,
+    EventsListComponent
   ],
   imports: [
     BrowserModule,

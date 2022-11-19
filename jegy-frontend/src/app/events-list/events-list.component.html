@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-header">
+        Events
+    </div>
+    <div class="card-body">
+
+        <div *ngIf="events.length == 0">
+            <div>No Events found</div>
+        </div>
+
+        <div class="row">
+            <div *ngFor="let event of events; index as i" class="col-md-4">
+                <div class="card mb-4">
+                    <img class="card-img-top" [src]="event.imgSource" width="250" height="200">
+                    <div class="card-body">
+                        <div class="desc">{{event.description}}</div>
+                        <div class="desc">{{event.location}}</div>
+                        <div class="desc">{{event.eventStart}}</div>
+                    </div>
+                    <div class="card-footer">
+                        <div *ngIf="userIsAdmin">
+                            <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
+                                <fa-icon [icon]="faPen"></fa-icon>
+                            </a>
+                            <a class="btn btn-danger m-1">
+                                <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
+                            </a>
+                        </div>
+                        <div *ngIf="!userIsAdmin">
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-secondary btn-block" (click)="close.emit()">Close</button>
+        </div>
+    </div>
+</div>

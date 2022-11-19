@@ -6,6 +6,7 @@ import { Event } from '../models/event.model'
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TicketsComponent } from '../tickets/tickets.component';
+import { EventsListComponent } from '../events-list/events-list.component';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,8 @@ export class HomeComponent implements OnInit {
   faLocation = faLocationDot;
   faCalendar = faCalendarDay;
 
-  addEventShow = false;
-  listView = true;
+  userIsAdmin = false;
+  listView = false;
 
   events: Event[] = [];
 
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     let user = this.sService.getUser();
     if (user) {
-      user.username === "admin" ? this.addEventShow = true : this.addEventShow = false
+      user.username === "admin" ? this.userIsAdmin = true : this.userIsAdmin = false
     }
 
     this.eService.getEvents().subscribe({
@@ -41,14 +42,13 @@ export class HomeComponent implements OnInit {
         console.log(err)
       }
     })
-    //sort by date
   }
 
   onSelect(event: Event) {
     this.router.navigate(['/event/edit/', event.id]);
   }
 
-  onDelete(event: Event){
+  onDelete(event: Event) {
     this.eService.deleteEvent(event.id).subscribe({
       next: (data) => {
         console.log("Deleted", data)
@@ -58,10 +58,38 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  showEvent(thisEvent: any){
-      let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'xl' });
-      (login.componentInstance as TicketsComponent).initShow({ close: () => login.close() });
-      login.componentInstance.event = thisEvent
+  showTicketsOfEvent(thisEvent: any) {
+    let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'xl' });
+    (login.componentInstance as TicketsComponent).initShow({ close: () => login.close() });
+    login.componentInstance.event = thisEvent
   }
 
+  showEvents(events: Event[]){
+    let eventList = this.modalService.open(EventsListComponent, { backdrop: 'static', centered: true, size: 'xl' });
+    (eventList.componentInstance as EventsListComponent).initShow({ close: () => eventList.close() });
+    eventList.componentInstance.events = events
+  }
+
+
+  onDateSelect(event: any) {
+    let date = this.formatDate(event)
+    let sortedEvents: Event[] = this.searchEvent(date)
+    this.showEvents(sortedEvents)
+  }
+
+  formatDate(date: any): string {
+    let month = ""
+    let day = ""
+
+    date.month < 10 ? month = "0" + date.month : month = date.month
+    date.day < 10 ? day = "0" + date.day : day = date.day
+
+    return `${date.year}-${month}-${day}`
+  }
+
+  searchEvent(date: string): Event[] {
+    let sortedEvents: Event[] = []
+    sortedEvents = this.events.filter(e => e.eventStart === date)
+    return sortedEvents
+  }
 }

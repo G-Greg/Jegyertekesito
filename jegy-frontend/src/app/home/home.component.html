@@ -11,7 +11,7 @@
   <div class="text-center">
 
 
-    <div class="p-2" *ngIf="addEventShow">
+    <div class="p-2" *ngIf="userIsAdmin">
       <button type="button" class="btn btn-secondary btn-lg m-5" routerLink="/new-event">Add new Event</button>
     </div>
 
@@ -22,7 +22,7 @@
 
 
     <div *ngIf="!listView">
-      <ngb-datepicker class="m-5"></ngb-datepicker>
+      <ngb-datepicker class="m-5" (dateSelect)="onDateSelect($event)"></ngb-datepicker>
     </div>
 
 
@@ -34,7 +34,7 @@
 
 
         <div *ngIf="i % 2 == 0" class="col-6 event pb-4" style="border-right: 2px solid rgb(255, 185, 255)">
-          <a (click)="showEvent(event)">
+          <a (click)="showTicketsOfEvent(event)">
             <div class="row">
               <div class="col-sm-8">
                 <img src="{{event.imgSource}}" class="card-img-top rounded">
@@ -43,7 +43,7 @@
                 <h2><span
                     class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span>
                 </h2>
-                <div *ngIf="addEventShow">
+                <div *ngIf="userIsAdmin">
                   <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
                     <fa-icon [icon]="faPen"></fa-icon>
                   </a>
@@ -77,13 +77,13 @@
 
         <div *ngIf="i % 2 != 0" class="col-6 pb-4" style="border-right: 2px solid rgb(255, 185, 255)"></div>
         <div *ngIf="i % 2 != 0" class="event col-6 pb-4" style="border-left: 2px solid rgb(255, 185, 255)">
-          <a (click)="showEvent(event)">
+          <a (click)="showTicketsOfEvent(event)">
             <div class="row">
               <div class="col-sm-4">
                 <h2><span
                     class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span>
                 </h2>
-                <div *ngIf="addEventShow">
+                <div *ngIf="userIsAdmin">
                   <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
                     <fa-icon [icon]="faPen"></fa-icon>
                   </a>
