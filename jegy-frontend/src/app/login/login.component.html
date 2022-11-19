@@ -13,7 +13,8 @@
                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
                     [(ngModel)]="form.username" required #username="ngModel" tabindex="-1">
 
-                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger p-2 mt-2">
+                <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                    class="alert alert-danger p-2 mt-2">
                     <div *ngIf="username.errors?.['required']">
                         Username is required.
                     </div>
@@ -36,6 +37,9 @@
                 </div>
             </div>
 
+            <div class="alert alert-danger" role="alert" *ngIf="error.isError">
+                Fail: {{error.message}}
+            </div>
 
 
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -48,6 +52,7 @@
         <div class="d-grid gap-2 col-6 mx-auto">
             <button class="btn btn-primary btn-block" (click)="showSignUp()">Sign Up</button>
         </div>
+
 
     </div>
     <div class="card-footer text-muted">

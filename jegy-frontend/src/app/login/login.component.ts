@@ -11,7 +11,7 @@ import { StorageService } from '../services/storage.service';
 export class LoginComponent implements OnInit {
 
   form = { username: '', password: '' }
-
+  error = { isError: false, message: ''}
 
   @Output()
   close = new EventEmitter<void>();
@@ -31,7 +31,10 @@ export class LoginComponent implements OnInit {
     if (this.form) {
       this.uService.login({username: this.form.username, password: this.form.password}).subscribe({
         next: (res) => this.handleLogin(res),
-        error: (err) => alert(err.error.title)
+        error: (err) => {
+          this.error.isError = true
+          this.error.message = err.error.title
+        }
       })
     }
 
