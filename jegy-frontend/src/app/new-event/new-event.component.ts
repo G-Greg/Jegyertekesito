@@ -269,10 +269,7 @@ export class NewEventComponent implements OnInit {
         this.tService.addTicket(newTicket).subscribe({
           next: (data: any) => {
             this.form.ticketId = data.id
-            this.response.state = 'Success'
-            this.response.body = 'Successfully created the ticket'
-            console.log("Success create a ticket")
-            console.log(data.id)
+            console.log("Success create a ticket", data)
             resolve(data.id)
           },
           error: (err) => {
