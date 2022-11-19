@@ -93,13 +93,23 @@ export class SummaryComponent implements OnInit {
     this.summary = this.ticketNum * this.price
   }
 
+  plus() {
+    this.ticketNum += 1
+    this.calculate()
+  }
+
+  minus() {
+    this.ticketNum > 1 ? this.ticketNum -= 1 : null
+    this.calculate()
+  }
+
   calculate() {
     this.summary = this.ticketNum * this.price
   }
 
   purchase() {
-    if(this.isThereEnoughTicket()){
-      this.tService.buyTicket({id: this.event.ticketId, data:[this.category, this.ticketNum.toString()]}).subscribe({
+    if (this.isThereEnoughTicket()) {
+      this.tService.buyTicket({ id: this.event.ticketId, data: [this.category, this.ticketNum.toString()] }).subscribe({
         next: () => {
           this.alert.state = 'Success'
           this.alert.body = 'Successfully purchased!'
@@ -111,7 +121,7 @@ export class SummaryComponent implements OnInit {
         }
       })
     }
-    else{
+    else {
       this.alert.state = 'Fail'
       this.alert.body = `Fail: You can't buy that many tickets`
     }

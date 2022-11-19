@@ -8,45 +8,48 @@
             <div class="col">
 
                 <div class="mb-3">
-                    <label for="name">Description</label>
+                    <label class="title" for="name">Description</label>
                     <div>{{event.description}}</div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="category">Category</label>
+                    <label class="title" for="category">Category</label>
                     <div>{{category}}</div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="location">Location</label>
+                    <label class="title" for="location">Location</label>
                     <div>{{event.location}}</div>
                 </div>
 
 
                 <div class="mb-3">
-                    <label for="startDate">Date</label>
+                    <label class="title" for="startDate">Date</label>
                     <div>{{event.eventStart === event.eventEnd ? event.eventStart : event.eventStart + " to " +
                         event.eventEnd}}</div>
                 </div>
             </div>
 
             <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="tickets">
-                                Number of tickets
-                            </label>
+                <div class="mb-3">
+                    <label class="title" for="tickets">
+                        Number of tickets
+                    </label>
+                    <div class="row">
+                        <div class="col-1">
+                            <span class="minusBtn" (click)="minus()">−</span>
+                        </div>
+                        <div class="col-2">
                             <input type="number" class="form-control" id="ticketNum" name="ticketNum" min="1"
                                 tabindex="-1" (change)="calculate()" [(ngModel)]="ticketNum">
-
+                        </div>
+                        <div class="col-1">
+                            <span class="plusBtn" (click)="plus()">+</span>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <label for="summary">Summary</label>
-                            <div>{{summary}} Ft</div>
-                        </div>
+                    <div class="mt-5">
+                        <label class="title" for="summary">Summary</label>
+                        <div class="price">{{summary}} Ft</div>
                     </div>
                 </div>
             </div>
@@ -55,7 +58,7 @@
         <hr>
         <div class="row">
             <div class="d-grid col-2">
-                <button class="btn btn-primary" (click)="purchase()">Purchase</button>
+                <button class="buy" (click)="purchase()">Purchase</button>
             </div>
         </div>
 
