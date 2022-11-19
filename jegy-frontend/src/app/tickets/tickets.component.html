@@ -4,14 +4,7 @@
     </div>
     <div class="card-body">
 
-        <div *ngIf="show" class="popup">
-            <ngb-toast header="Login" [autohide]="false" (hidden)="show=false">
-                Please login first!
-            </ngb-toast>
-        </div>
-
         <div class="row">
-
             <div *ngFor="let ticket of tickets; index as i" class="col-md-4">
                 <div class="card mb-4">
                     <img class="card-img-top" [src]="event.imgSource">
@@ -32,6 +25,9 @@
             </div>
         </div>
 
+        <div class="alert alert-danger" role="alert" *ngIf="showLoginErr">
+            Please login first!
+        </div>
 
     </div>
     <div class="card-footer">
