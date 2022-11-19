@@ -1,8 +1,46 @@
-.card{box-shadow: 2px 3px 4px #888888;}
+.card {
+    box-shadow: 2px 3px 4px #888888;
+}
 
-.popup{
+.popup {
     position: absolute;
     z-index: 1;
     top: -30%;
     left: 25%;
+}
+
+.desc {
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.name {
+    text-align: center;
+    font-style: italic;
+    color: white;
+    font-weight: 800;
+    font-size: x-large;
+    text-shadow: 2px 2px 7px #040404;
+}
+
+.price {
+    color: black;
+    font-weight: 700;
+    font-size: large;
+    text-align: center;
+}
+
+.mybtn{
+    box-shadow: 2px 2px 4px 0px #b2830d;
+    border: none;
+    font-style: italic;
+    font-weight: 500;
+    color: white;
+    background-color: #ebad12;
+    border-color: #ebad12;
+    padding: 0px;
+    border-radius: 0.375rem;
+    padding-block: 6px;
+    display: inline-block;
 }

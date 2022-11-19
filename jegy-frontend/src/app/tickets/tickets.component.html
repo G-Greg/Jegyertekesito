@@ -16,13 +16,13 @@
                 <div class="card mb-4">
                     <img class="card-img-top" [src]="event.imgSource">
                     <div class="card-body">
-                        {{event.description}}
-                        <br>
-                        {{ticket.name}}
-                        <br>
-                        {{ticket.price}} Ft
+
+                        <div class="desc">{{event.description}}</div>
+                        <div class="name">{{ticket.name}}</div>
+                        <div class="price m-2">{{ticket.price}} Ft</div>
+
                         <div class="d-grid gap-2 col-4 mx-auto">
-                            <button class="btn btn-primary btn-block" (click)="toSummaryPage(ticket.name)">Buy</button>
+                            <button class="mybtn" (click)="toSummaryPage(ticket.name)">Buy</button>
                         </div>
                     </div>
                     <div class="card-footer">

@@ -232,8 +232,6 @@ export class NewEventComponent implements OnInit {
       if (this.ticketIsValid(newTicket)) {
         this.tService.updateTicket({ id: this.ticket.id, ticket: newTicket }).subscribe({
           next: (data: any) => {
-            this.response.state = 'Success'
-            this.response.body = 'Successfully updated the ticket'
             console.log("Success update a ticket")
             resolve(data)
           },

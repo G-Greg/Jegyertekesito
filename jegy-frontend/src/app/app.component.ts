@@ -19,7 +19,7 @@ export class AppComponent {
 
   username = null;
 
-  constructor(private router: Router, private modalService: NgbModal, private sService: StorageService) {
+  constructor(private modalService: NgbModal, private sService: StorageService) {
     this.initJegyertekesito();
   }
 

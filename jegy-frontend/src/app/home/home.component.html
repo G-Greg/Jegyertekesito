@@ -33,7 +33,7 @@
 
 
 
-        <div *ngIf="i % 2 == 0" class="col-6 event" style="border-right: 2px solid rgb(255, 185, 255)">
+        <div *ngIf="i % 2 == 0" class="col-6 event pb-4" style="border-right: 2px solid rgb(255, 185, 255)">
           <a (click)="showEvent(event)">
             <div class="row">
               <div class="col-sm-8">
@@ -70,13 +70,13 @@
             </div>
           </a>
         </div>
-        <div *ngIf="i % 2 == 0" class="col-6" style="border-left: 2px solid rgb(255, 185, 255)"></div>
+        <div *ngIf="i % 2 == 0" class="col-6 pb-4" style="border-left: 2px solid rgb(255, 185, 255)"></div>
 
 
 
 
-        <div *ngIf="i % 2 != 0" class="col-6" style="border-right: 2px solid rgb(255, 185, 255)"></div>
-        <div *ngIf="i % 2 != 0" class="event col-6" style="border-left: 2px solid rgb(255, 185, 255)">
+        <div *ngIf="i % 2 != 0" class="col-6 pb-4" style="border-right: 2px solid rgb(255, 185, 255)"></div>
+        <div *ngIf="i % 2 != 0" class="event col-6 pb-4" style="border-left: 2px solid rgb(255, 185, 255)">
           <a (click)="showEvent(event)">
             <div class="row">
               <div class="col-sm-4">
@@ -118,7 +118,7 @@
 
   </div>
 </main>
-<div class="p-5"></div>
+
 <div class="card-footer card">
   <div class="row">
     <div class="col text-start">2022</div>
