@@ -22,10 +22,14 @@
 
 
     <div *ngIf="!listView">
-      <ngb-datepicker class="m-5" (dateSelect)="onDateSelect($event)"></ngb-datepicker>
+      <ngb-datepicker class="m-5" (dateSelect)="onDateSelect($event)" [dayTemplate]="t"></ngb-datepicker>
     </div>
 
-
+    <ng-template #t let-date let-focused="focused">
+      <span class="custom-day" [class.range]="isRange(date)">
+        {{ date.day }}
+      </span>
+    </ng-template>
 
     <div *ngIf="listView">
       <div class="row" *ngFor="let event of events; index as i">

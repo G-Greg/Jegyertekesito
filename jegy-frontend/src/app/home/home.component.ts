@@ -4,7 +4,7 @@ import { EventService } from '../services/event.service';
 import { faPen, faTrash, faLocationDot, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
 import { Event } from '../models/event.model'
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TicketsComponent } from '../tickets/tickets.component';
 import { EventsListComponent } from '../events-list/events-list.component';
 
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
     login.componentInstance.event = thisEvent
   }
 
-  showEvents(events: Event[]){
+  showEvents(events: Event[]) {
     let eventList = this.modalService.open(EventsListComponent, { backdrop: 'static', centered: true, size: 'xl' });
     (eventList.componentInstance as EventsListComponent).initShow({ close: () => eventList.close() });
     eventList.componentInstance.events = events
@@ -91,5 +91,14 @@ export class HomeComponent implements OnInit {
     let sortedEvents: Event[] = []
     sortedEvents = this.events.filter(e => e.eventStart === date)
     return sortedEvents
+  }
+
+  isRange(date: NgbDate) {
+    let isEvent = false
+    let formatedDate = this.formatDate(date)
+    this.events.map(e => {
+       e.eventStart === formatedDate ? isEvent = true : null
+    })
+    return isEvent
   }
 }

@@ -1,3 +1,21 @@
 /*.container{
     background-color: #421378;
 }*/
+.custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 5px;
+}
+
+.custom-day.range{
+    background-color: rgb(151, 0, 141);
+    color: white;
+}
+
+.custom-day:hover {
+    background-color: rgb(195, 157, 43);
+    color: white;
+}
