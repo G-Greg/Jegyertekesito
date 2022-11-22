@@ -1,6 +1,8 @@
-/*.container{
-    background-color: #97008d;
-}*/
+html :root {
+    --text-color: white;
+    --bg-color: #670060;
+}
+
 .custom-day {
     text-align: center;
     padding: 0.185rem 0.25rem;
@@ -11,7 +13,7 @@
 }
 
 .custom-day.range {
-    background-color: rgb(151, 0, 141);
+    background-color: #97008d;
     box-shadow: 2px 2px 5px 0px #290026;
     color: white;
 }
@@ -21,3 +23,45 @@
     box-shadow: 2px 2px 5px 0px #524212;
     color: white;
 }
+
+.form-check-label,
+h1 {
+    color: #670060;
+}
+
+h3 {
+    color: #c39d2b;
+}
+
+
+.form-check-input:checked {
+    background-color: #670060;
+    border-color: #670060;
+}
+
+.form-check-input:focus {
+    border-color: #670060;
+    box-shadow: 0 0 0 0.25rem #67006036;
+}
+
+.badge {
+    background-color: #670060 !important;
+    box-shadow: 2px 2px 5px 0px #524212;
+}
+
+
+.btn-secondary{
+    background-color: #c39d2b;
+    border-color: #c39d2b;
+    box-shadow: 2px 2px 5px 0px #524212;
+}
+
+.btn-link{
+    color: #c39d2b !important;
+}
+
+/*.desc {
+    color: white;
+    background-color: #670060;
+    border-radius: 5px;
+}*/

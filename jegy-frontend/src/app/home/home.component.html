@@ -37,7 +37,7 @@
 
 
 
-        <div *ngIf="i % 2 == 0" class="col-6 event pb-4" style="border-right: 2px solid rgb(255, 185, 255)">
+        <div *ngIf="i % 2 == 0" class="col-6 event pb-4" style="border-right: 2px solid #97008d">
           <a (click)="showTicketsOfEvent(event)">
             <div class="row">
               <div class="col-sm-8">
@@ -48,11 +48,11 @@
                     class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span>
                 </h2>
                 <div *ngIf="userIsAdmin">
-                  <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
+                  <a class="btn btn-secondary m-2" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
                     <fa-icon [icon]="faPen"></fa-icon>
                   </a>
                   <br>
-                  <a class="btn btn-danger">
+                  <a class="btn btn-secondary">
                     <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
                   </a>
                 </div>
@@ -62,11 +62,13 @@
               <div class="col-sm-8">
                 <div class="text-right">
                   <h3>{{event.description}}</h3>
-                  {{event.about}}
-                  <br>
-                  <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
-                  <br>
-                  <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+                  <div class="desc">
+                    {{event.about}}
+                    <br>
+                    <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+                    <br>
+                    <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+                  </div>
                 </div>
               </div>
               <div class="col-sm-4">
@@ -74,13 +76,13 @@
             </div>
           </a>
         </div>
-        <div *ngIf="i % 2 == 0" class="col-6 pb-4" style="border-left: 2px solid rgb(255, 185, 255)"></div>
+        <div *ngIf="i % 2 == 0" class="col-6 pb-4" style="border-left: 2px solid #97008d"></div>
 
 
 
 
-        <div *ngIf="i % 2 != 0" class="col-6 pb-4" style="border-right: 2px solid rgb(255, 185, 255)"></div>
-        <div *ngIf="i % 2 != 0" class="event col-6 pb-4" style="border-left: 2px solid rgb(255, 185, 255)">
+        <div *ngIf="i % 2 != 0" class="col-6 pb-4" style="border-right: 2px solid #97008d"></div>
+        <div *ngIf="i % 2 != 0" class="event col-6 pb-4" style="border-left: 2px solid #97008d">
           <a (click)="showTicketsOfEvent(event)">
             <div class="row">
               <div class="col-sm-4">
@@ -88,11 +90,11 @@
                     class="badge bg-secondary">{{event.eventStart.slice(5,7)}}.<br>{{event.eventStart.slice(8,11)}}.</span>
                 </h2>
                 <div *ngIf="userIsAdmin">
-                  <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
+                  <a class="btn btn-secondary m-2" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
                     <fa-icon [icon]="faPen"></fa-icon>
                   </a>
                   <br>
-                  <a class="btn btn-danger">
+                  <a class="btn btn-secondary">
                     <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
                   </a>
                 </div>

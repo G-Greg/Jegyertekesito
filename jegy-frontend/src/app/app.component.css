@@ -1,0 +1,18 @@
+.navbar {
+    background-color: #670060;
+}
+
+.nav-item {
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 0px #290026;
+    margin-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.nav-link,
+.navbar-toggler,
+.navbar-brand {
+    color: whitesmoke;
+}
