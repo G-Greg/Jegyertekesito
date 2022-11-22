@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
     let isEvent = false
     let formatedDate = this.formatDate(date)
     this.events.map(e => {
-       e.eventStart === formatedDate ? isEvent = true : null
+      e.eventStart === formatedDate ? isEvent = true : null
     })
     return isEvent
   }

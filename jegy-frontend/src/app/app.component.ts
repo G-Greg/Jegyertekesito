@@ -13,6 +13,7 @@ import { StorageService } from './services/storage.service';
 export class AppComponent {
 
   title = 'jegy-frontend';
+  isNavbarCollapsed = true;
   faTicket = faTicket;
   faUser = faUser;
   faRightFromBracket = faRightFromBracket;
