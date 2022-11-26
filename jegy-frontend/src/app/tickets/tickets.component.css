@@ -45,13 +45,13 @@
 }
 
 .mybtn{
-    box-shadow: 2px 2px 4px 0px #b2830d;
     border: none;
     font-style: italic;
     font-weight: 500;
     color: white;
-    background-color: #ebad12;
-    border-color: #ebad12;
+    background-color: #c39d2b;
+    border-color: #c39d2b;
+    box-shadow: 2px 2px 5px 0px #524212;
     padding: 0px;
     border-radius: 0.375rem;
     padding-block: 6px;

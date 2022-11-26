@@ -27,14 +27,9 @@ export class TicketsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    //image.src = this.event?.imgSource || ""
-    //get tickets
-
     this.tService.getTicket(this.event?.ticketId).subscribe({
       next: (data: any) => {
         this.fillTicketsArray(data)
-        console.log("Success get ticket")
       },
       error: (err) => {
         console.log(err)

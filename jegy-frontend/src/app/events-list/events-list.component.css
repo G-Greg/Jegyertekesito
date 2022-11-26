@@ -2,11 +2,7 @@
     box-shadow: 2px 3px 4px #888888;
 }
 
-.card-header,
-.card-footer {
-    color: white;
-    background-color: #670060;
-}
+
 
 .btn-primary {
     background-color: #c39d2b;

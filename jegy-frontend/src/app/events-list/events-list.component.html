@@ -11,18 +11,20 @@
         <div class="row">
             <div *ngFor="let event of events; index as i" class="col-md-4">
                 <div class="card mb-4">
-                    <img class="card-img-top" [src]="event.imgSource" width="250" height="200">
-                    <div class="card-body">
-                        <div class="desc">{{event.description}}</div>
-                        <div class="desc">{{event.location}}</div>
-                        <div class="desc">{{event.eventStart}}</div>
-                    </div>
+                    <a (click)="showTicketsOfEvent(event)">
+                        <img class="card-img-top" [src]="event.imgSource" width="250" height="200">
+                        <div class="card-body">
+                            <div class="desc">{{event.description}}</div>
+                            <div class="desc">{{event.location}}</div>
+                            <div class="desc">{{event.eventStart}}</div>
+                        </div>
+                    </a>
                     <div class="card-footer">
                         <div *ngIf="userIsAdmin">
                             <a class="btn btn-primary m-1" (click)="onSelect(event)" routerLink="/event/edit/{{i}}">
                                 <fa-icon [icon]="faPen"></fa-icon>
                             </a>
-                            <a class="btn btn-danger m-1">
+                            <a class="btn btn-primary m-1">
                                 <fa-icon [icon]="faTrash" (click)="onDelete(event)"></fa-icon>
                             </a>
                         </div>
