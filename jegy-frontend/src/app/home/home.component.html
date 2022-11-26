@@ -125,10 +125,21 @@
   </div>
 </main>
 
-<div class="card-footer card">
-  <div class="row">
-    <div class="col text-start">2022</div>
-    <div class="col text-end">jegyertekesito.hu</div>
+<div *ngIf="!listView" class="calendar-footer">
+  <div class="card-footer card">
+    <div class="row">
+      <div class="col text-start">2022</div>
+      <div class="col text-end">jegyertekesito.hu</div>
+    </div>
   </div>
 </div>
+<div *ngIf="listView">
+  <div class="card-footer card">
+    <div class="row">
+      <div class="col text-start">2022</div>
+      <div class="col text-end">jegyertekesito.hu</div>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

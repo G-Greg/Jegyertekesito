@@ -50,13 +50,13 @@ h3 {
 }
 
 
-.btn-secondary{
+.btn-secondary {
     background-color: #c39d2b;
     border-color: #c39d2b;
     box-shadow: 2px 2px 5px 0px #524212;
 }
 
-.btn-link{
+.btn-link {
     color: #c39d2b !important;
 }
 
@@ -65,3 +65,18 @@ h3 {
     background-color: #670060;
     border-radius: 5px;
 }*/
+
+.card-footer {
+    border-radius: 5px;
+
+    color: #97008d;
+}
+
+.calendar-footer {
+    width: -webkit-fill-available;
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+}

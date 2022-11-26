@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   faCalendar = faCalendarDay;
 
   userIsAdmin = false;
-  listView = true;
+  listView = false;
 
   events: Event[] = [];
 
