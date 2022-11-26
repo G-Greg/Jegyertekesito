@@ -1,0 +1,31 @@
+.card {
+    box-shadow: 2px 3px 4px #888888;
+}
+
+.card-header,
+.card-footer {
+    color: white;
+    background-color: #670060;
+}
+
+.btn-primary {
+    background-color: #c39d2b;
+    border-color: #c39d2b;
+    box-shadow: 2px 2px 5px 0px #524212;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background-color: #9a9a9a;
+    border-color: #efefef;
+    box-shadow: 2px 2px 5px 0px white;
+}
+
+.form-control:focus {
+    border-color: #67006045;
+    box-shadow: 0 0 0 0.25rem #67006036;
+}
+
+label {
+    color: #670060
+}

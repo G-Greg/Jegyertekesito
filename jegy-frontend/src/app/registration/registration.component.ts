@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service'
 
 @Component({
@@ -11,11 +12,11 @@ export class RegistrationComponent implements OnInit {
   close = new EventEmitter<void>();
 
   form = { name: null, username: null, email: null, password: null, terms: false }
-  constructor(private service: UserService) {
+  constructor(private service: UserService, private router: Router) {
 
   }
 
-  error = { isError: false, message: ''}
+  status = { isError: false, message: ''}
 
   ngOnInit(): void {
   }
@@ -24,17 +25,21 @@ export class RegistrationComponent implements OnInit {
     let newUser = this.createUser(this.form)
     if (newUser !== null) {
       this.service.addUser(newUser).subscribe({
-        next: () => console.log("Registration success"),
+        next: () => {
+          console.log("Registration success")
+          this.status.message = 'success'
+          setTimeout(() => {this.router.navigate(['/home']);}, 10000);
+        },
         error: (err) => 
         {
-          this.error.isError = true
-          this.error.message = err.message
+          this.status.isError = true
+          this.status.message = err.message
         }
       })
     }
     else {
-      this.error.isError = true
-      setTimeout(() => {this.error.isError = false}, 3000);
+      this.status.isError = true
+      setTimeout(() => {this.status.isError = false}, 3000);
     }
   }
 

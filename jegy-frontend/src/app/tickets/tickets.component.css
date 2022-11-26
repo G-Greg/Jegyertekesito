@@ -2,6 +2,19 @@
     box-shadow: 2px 3px 4px #888888;
 }
 
+.card-header,
+.card-footer {
+    color: white;
+    background-color: #8a2f7e;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background-color: #9a9a9a;
+    border-color: #efefef;
+    box-shadow: 2px 2px 5px 0px white;
+}
+
 .popup {
     position: absolute;
     z-index: 1;

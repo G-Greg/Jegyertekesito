@@ -10,7 +10,7 @@
           Name
         </label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" [(ngModel)]="form.name"
-          required #name="ngModel" tabindex="-1">
+          required #name="ngModel">
 
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="name.errors?.['required']">
@@ -24,7 +24,7 @@
           Username
         </label>
         <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
-          [(ngModel)]="form.username" required #username="ngModel" tabindex="-1">
+          [(ngModel)]="form.username" required #username="ngModel">
 
         <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="username.errors?.['required']">
@@ -38,7 +38,7 @@
           Email
         </label>
         <input type="text" class="form-control" id="email" name="email" placeholder="Enter email"
-          [(ngModel)]="form.email" required email #email="ngModel" tabindex="-1">
+          [(ngModel)]="form.email" required email #email="ngModel">
 
         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="email.errors?.['required']">
@@ -56,7 +56,7 @@
           Password
         </label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
-          [(ngModel)]="form.password" required #password="ngModel" tabindex="-1">
+          [(ngModel)]="form.password" required #password="ngModel">
 
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger p-2 mt-2">
           <div *ngIf="password.errors?.['required']">
@@ -71,12 +71,18 @@
         <label class="form-check-label" for="terms">I agree to the <a href="/sign-up">Terms of Service</a></label>
       </div>
 
-      <div class="alert alert-warning" role="alert" *ngIf="error.isError && error.message === '' ">
+      <div class="alert alert-success" role="alert" *ngIf="!status.isError && status.message === 'success' ">
+        Success registration!
+        <br>
+        You will be redirected to the home page within 10 seconds
+      </div>
+
+      <div class="alert alert-warning" role="alert" *ngIf="status.isError && status.message === '' ">
         Error: Please check that you have filled out the form correctly
       </div>
 
-      <div class="alert alert-danger" role="alert" *ngIf="error.isError && error.message !== '' ">
-        Fail: {{error.message}}
+      <div class="alert alert-danger" role="alert" *ngIf="status.isError && status.message !== '' ">
+        Fail: {{status.message}}
       </div>
 
       <div class="d-grid gap-2 col-6 mx-auto">
