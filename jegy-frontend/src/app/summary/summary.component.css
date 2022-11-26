@@ -39,7 +39,7 @@
     box-shadow: 1px 1px 4px 0px #560101;
 }
 
-.buy{
+.btn-primary{
     border: none;
     font-style: italic;
     font-weight: 500;
@@ -53,6 +53,10 @@
     display: inline-block;
 }
 
+.card{
+    margin-top: 15px;
+    border-color: #670060;
+}
 
 .card-header,
 .card-footer {

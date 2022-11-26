@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Ticket } from '../models/ticket.model';
 import { Event } from '../models/event.model';
 import { TicketService } from '../services/ticket.service';
 import { EventService } from '../services/event.service';
-import { faSquareCaretDown, faAlignLeft, faMoneyBill1, faTicket, faBars, faLocationDot, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
+import { faSquareCaretDown, faMoneyBill1, faTicket, faBars, faLocationDot, faCalendarDay, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-summary',
@@ -16,6 +16,8 @@ export class SummaryComponent implements OnInit {
   @Output()
   close = new EventEmitter<void>();
 
+  faUser = faUser;
+  faEmail = faEnvelope;
   faBars = faBars;
   faMoneyBill1 = faMoneyBill1;
   faTicket = faTicket;
@@ -23,6 +25,7 @@ export class SummaryComponent implements OnInit {
   faLocationDot = faLocationDot;
   faCalendarDay = faCalendarDay;
 
+  loggedUser = {name:'', username: '', email: ''}
   eventId: number = 0;
   event: Event = { id: 0, ticketId: 0, about: '', description: '', eventStart: '', eventEnd: '', imgSource: '', location: '' }
   category: string = ''
@@ -31,18 +34,26 @@ export class SummaryComponent implements OnInit {
   summary: number = 0
   ticketNum: number = 1
   alert = { state: 'Undefined', body: '' }
+  isPurchase = true
 
-  constructor(private activatedRoute: ActivatedRoute, private eService: EventService, private tService: TicketService) { }
+  constructor(private activatedRoute: ActivatedRoute, private eService: EventService, private tService: TicketService, private sService: StorageService) { }
 
   ngOnInit(): void {
     this.eventId = parseInt(this.activatedRoute.snapshot.paramMap.get('eventId')!);
     this.category = this.activatedRoute.snapshot.paramMap.get('category')!;
 
     this.getEvent(this.eventId)
+    this.getUser()
 
   }
-  onSubmit() {
-    console.log("this.form")
+
+  getUser() {
+    this.loggedUser = this.sService.getUser()
+    if (this.loggedUser === null) {
+      this.isPurchase = false
+      this.alert.state = 'Fail'
+      this.alert.body = `This user is invalid`
+    }
   }
 
   getEvent(id: number) {

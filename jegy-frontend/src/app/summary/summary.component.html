@@ -8,29 +8,51 @@
             <div class="col">
 
                 <div class="mb-3">
-                    <label class="title" for="name"><fa-icon [icon]="faBars"></fa-icon> Description</label>
+                    <label class="title" for="uname">
+                        <fa-icon [icon]="faUser"></fa-icon> Name
+                    </label>
+                    <div>{{loggedUser.name}}</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="title" for="email">
+                        <fa-icon [icon]="faEmail"></fa-icon> Email
+                    </label>
+                    <div>{{loggedUser.email}}</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="title" for="name">
+                        <fa-icon [icon]="faBars"></fa-icon> Description
+                    </label>
                     <div>{{event.description}}</div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="title" for="category"><fa-icon [icon]="faSquareCaretDown"></fa-icon> Category</label>
+                    <label class="title" for="category">
+                        <fa-icon [icon]="faSquareCaretDown"></fa-icon> Category
+                    </label>
                     <div>{{category}}</div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="title" for="location"><fa-icon [icon]="faLocationDot"></fa-icon> Location</label>
-                    <div>{{event.location}}</div>
-                </div>
 
-
-                <div class="mb-3">
-                    <label class="title" for="startDate"><fa-icon [icon]="faCalendarDay"></fa-icon> Date</label>
-                    <div>{{event.eventStart === event.eventEnd ? event.eventStart : event.eventStart + " to " +
-                        event.eventEnd}}</div>
-                </div>
             </div>
 
             <div class="col">
+                <div class="mb-3">
+                    <label class="title" for="location">
+                        <fa-icon [icon]="faLocationDot"></fa-icon> Location
+                    </label>
+                    <div>{{event.location}}</div>
+                </div>
+                <div class="mb-3">
+                    <label class="title" for="startDate">
+                        <fa-icon [icon]="faCalendarDay"></fa-icon> Date
+                    </label>
+                    <div>{{event.eventStart === event.eventEnd ? event.eventStart : event.eventStart + " to " +
+                        event.eventEnd}}</div>
+                </div>
+
                 <div class="mb-3">
                     <label class="title" for="tickets">
                         <fa-icon [icon]="faTicket"></fa-icon> Number of tickets
@@ -47,8 +69,11 @@
                             <span class="plusBtn" (click)="plus()">+</span>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <label class="title" for="summary"><fa-icon [icon]="faMoneyBill1"></fa-icon> Summary</label>
+
+                    <div class="mt-2">
+                        <label class="title" for="summary">
+                            <fa-icon [icon]="faMoneyBill1"></fa-icon> Summary
+                        </label>
                         <div class="price">{{summary}} Ft</div>
                     </div>
                 </div>
@@ -56,18 +81,18 @@
         </div>
 
         <hr>
-        <div class="row">
-            <div class="d-grid col-2">
-                <button class="buy" (click)="purchase()">Purchase</button>
-            </div>
-        </div>
-
         <div class="alert alert-success mt-3" role="alert" *ngIf="alert.state === 'Success'">
             {{alert.body}}
         </div>
         <div class="alert alert-danger mt-3" role="alert" *ngIf="alert.state === 'Fail'">
             {{alert.body}}
         </div>
+        <div class="row">
+            <div class="d-grid col-2">
+                <button class="btn btn-primary" (click)="purchase()" [disabled]="!isPurchase">Purchase</button>
+            </div>
+        </div>
+
     </div>
     <div class="card-footer">
         <div class="row">
