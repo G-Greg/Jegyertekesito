@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using jegy_backend.Contexts;
-
+using jegy_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
@@ -18,6 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DatabaseContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Jegyertekesito")));
 
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

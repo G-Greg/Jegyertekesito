@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using jegy_backend.Contexts;
 using jegy_backend.Models;
+using jegy_backend.Services;
 
 namespace jegy_backend.Controllers
 {
@@ -15,24 +11,26 @@ namespace jegy_backend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DatabaseContext _context;
+        private readonly IUserService _userService;
 
-        public UsersController(DatabaseContext context)
+        public UsersController(IUserService userService)
         {
-            _context = context;
+
+            _userService = userService;
         }
 
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _userService.getUsers();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(long id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userService.getUser(id);
 
             if (user == null)
             {
@@ -52,22 +50,16 @@ namespace jegy_backend.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            var res = await _userService.putUser(id, user);
 
-            try
+            if (res == null)
             {
-                await _context.SaveChangesAsync();
+
+                return Conflict("Error during update the user");
             }
-            catch (DbUpdateConcurrencyException)
+            else if (!_userService.userExists(res.Id))
             {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict("This user is not exist");
             }
 
             return NoContent();
@@ -78,20 +70,20 @@ namespace jegy_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            foreach (var user1 in _context.Users)
+
+            foreach (var user1 in _userService.Users())
             {
                 if (user.UserName == user1.UserName)
                 {
                     return Conflict("This username is already taken");
                 }
-                if (user.Email == user1.Email) 
+                if (user.Email == user1.Email)
                 {
                     return Conflict("This email is already registered");
                 }
             }
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            await _userService.postUser(user);
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
@@ -100,34 +92,25 @@ namespace jegy_backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(long id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var res = await _userService.deleteUser(id);
+            if (res == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok();
         }
 
-        private bool UserExists(long id)
-        {
-            return _context.Users.Any(e => e.Id == id);
-        }
 
         // GET: api/Users/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login(User data)
+        public async Task<IActionResult> Login(User user)
         {
-
-
             try
             {
-                var result = _context.Users.Where(e => e.UserName == data.UserName).ToList().First();
+                var result = _userService.login(user).Result;
 
-                if (result.Password != data.Password)
+                if (result.Password != user.Password)
                 {
                     return BadRequest();
                 }
