@@ -33,7 +33,7 @@ export class RegistrationComponent implements OnInit {
         error: (err) => 
         {
           this.status.isError = true
-          this.status.message = err.message
+          this.status.message = err.error
         }
       })
     }

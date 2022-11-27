@@ -10,7 +10,6 @@ namespace jegy_backend.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly DatabaseContext _context;
         private readonly IUserService _userService;
 
         public UsersController(IUserService userService)

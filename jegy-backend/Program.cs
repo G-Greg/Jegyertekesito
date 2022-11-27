@@ -20,6 +20,7 @@ builder.Services.AddDbContext<DatabaseContext>(opt =>
 
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
 var app = builder.Build();
 

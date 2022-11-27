@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using jegy_backend.Contexts;
+﻿using Microsoft.AspNetCore.Mvc;
 using jegy_backend.Models;
+using jegy_backend.Services;
 
 namespace jegy_backend.Controllers
 {
@@ -14,25 +8,25 @@ namespace jegy_backend.Controllers
     [ApiController]
     public class EventsController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly IEventService _eventService;
 
-        public EventsController(DatabaseContext context)
+        public EventsController(IEventService eventService)
         {
-            _context = context;
+            _eventService = eventService;
         }
 
         // GET: api/Events
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            return await _context.Events.ToListAsync();
+            return await _eventService.getEvents();
         }
 
         // GET: api/Events/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(long id)
         {
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _eventService.getEvent(id);
 
             if (@event == null)
             {
@@ -52,22 +46,15 @@ namespace jegy_backend.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(@event).State = EntityState.Modified;
+            var res = await _eventService.putEvent(id, @event);
 
-            try
+            if (res == null)
             {
-                await _context.SaveChangesAsync();
+                return Conflict("Error during update the event");
             }
-            catch (DbUpdateConcurrencyException)
+            else if (!_eventService.eventExists(res.Id))
             {
-                if (!EventExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict("This event is not exist");
             }
 
             return NoContent();
@@ -78,9 +65,7 @@ namespace jegy_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Event>> PostEvent(Event @event)
         {
-            _context.Events.Add(@event);
-            await _context.SaveChangesAsync();
-
+            await _eventService.postEvent(@event);
             return CreatedAtAction("GetEvent", new { id = @event.Id }, @event);
         }
 
@@ -88,21 +73,13 @@ namespace jegy_backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(long id)
         {
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _eventService.deleteEvent(id);
             if (@event == null)
             {
                 return NotFound();
             }
 
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool EventExists(long id)
-        {
-            return _context.Events.Any(e => e.Id == id);
         }
     }
 }
