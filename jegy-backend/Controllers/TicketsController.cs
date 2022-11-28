@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using jegy_backend.Contexts;
+﻿using Microsoft.AspNetCore.Mvc;
 using jegy_backend.Models;
+using jegy_backend.Services;
 
 namespace jegy_backend.Controllers
 {
@@ -14,31 +8,30 @@ namespace jegy_backend.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly ITicketService _ticketService;
 
-        public TicketsController(DatabaseContext context)
+        public TicketsController(ITicketService ticketService)
         {
-            _context = context;
+            _ticketService = ticketService;
         }
 
         // GET: api/Tickets
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-            return await _context.Tickets.ToListAsync();
+            return await _ticketService.getTickets();
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(long id)
         {
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _ticketService.getTicket(id);
 
             if (ticket == null)
             {
                 return NotFound();
             }
-
             return ticket;
         }
 
@@ -52,22 +45,15 @@ namespace jegy_backend.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(ticket).State = EntityState.Modified;
+            var res = await _ticketService.putTicket(id, ticket);
 
-            try
+            if (res == null)
             {
-                await _context.SaveChangesAsync();
+                return Conflict("Error during update the ticket");
             }
-            catch (DbUpdateConcurrencyException)
+            else if (!_ticketService.ticketExists(res.Id))
             {
-                if (!TicketExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict("This ticket is not exist");
             }
 
             return NoContent();
@@ -76,44 +62,16 @@ namespace jegy_backend.Controllers
         [HttpPut("buy/{id}")]
         public async Task<IActionResult> BuyTicket(long id, string[] value)
         {
-            int amount = int.Parse(value[1]);
-            Ticket ticket = _context.Tickets.Where(e => e.Id == id).First();
 
-            if (id != ticket.Id)
+            var res = await _ticketService.buyTicket(id, value);
+
+            if (res == null)
             {
-                return BadRequest();
+                return Conflict("Error during buy the ticket");
             }
-
-            if (value[0].Equals("Early Bird")) {
-                ticket.EarlyBird = ticket.EarlyBird - amount;
-            }
-            else if (value[0].Equals("Last Minute")) {
-                ticket.LastMinute = ticket.LastMinute - amount;
-            }
-            else if (value[0].Equals("Normal")) {
-                ticket.Normal = ticket.Normal - amount;
-            }
-            else if (value[0].Equals("VIP")) {
-                ticket.VIP = ticket.VIP - amount;
-            }
-
-
-            _context.Entry(ticket).State = EntityState.Modified;
-
-            try
+            else if (!_ticketService.ticketExists(res.Id))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TicketExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict("This ticket is not exist");
             }
 
             return Ok();
@@ -124,9 +82,7 @@ namespace jegy_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
-            _context.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
-
+            await _ticketService.postTicket(ticket);
             return CreatedAtAction("GetTicket", new { id = ticket.Id }, ticket);
         }
 
@@ -134,21 +90,14 @@ namespace jegy_backend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTicket(long id)
         {
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket == null)
+            var ticket = await _ticketService.deleteTicket(id);
+            if (!ticket)
             {
                 return NotFound();
             }
 
-            _context.Tickets.Remove(ticket);
-            await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
-        private bool TicketExists(long id)
-        {
-            return _context.Tickets.Any(e => e.Id == id);
-        }
     }
 }
