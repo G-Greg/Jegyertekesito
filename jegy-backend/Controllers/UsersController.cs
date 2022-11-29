@@ -92,7 +92,7 @@ namespace jegy_backend.Controllers
         public async Task<IActionResult> DeleteUser(long id)
         {
             var res = await _userService.deleteUser(id);
-            if (res == null)
+            if (!res)
             {
                 return NotFound();
             }
@@ -107,7 +107,7 @@ namespace jegy_backend.Controllers
         {
             try
             {
-                var result = _userService.login(user).Result;
+                var result = await _userService.login(user);
 
                 if (result.Password != user.Password)
                 {

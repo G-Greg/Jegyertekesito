@@ -60,12 +60,6 @@ h3 {
     color: #c39d2b !important;
 }
 
-/*.desc {
-    color: white;
-    background-color: #670060;
-    border-radius: 5px;
-}*/
-
 .card-footer {
     border-radius: 5px;
 
@@ -79,4 +73,19 @@ h3 {
     bottom: 0px;
     transform: translate(-50%, -50%);
     margin: 0 auto;
+}
+
+.year{
+    font-weight: 800;
+    font-size: x-large;
+    color:#97008d;
+    font-style: italic;
+}
+
+.arrow{
+    cursor: pointer;
+}
+
+.desc{
+    text-align: justify;
 }

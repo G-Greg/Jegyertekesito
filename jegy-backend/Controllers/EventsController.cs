@@ -74,7 +74,7 @@ namespace jegy_backend.Controllers
         public async Task<IActionResult> DeleteEvent(long id)
         {
             var @event = await _eventService.deleteEvent(id);
-            if (@event == null)
+            if (!@event)
             {
                 return NotFound();
             }

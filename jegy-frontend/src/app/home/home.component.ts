@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { EventService } from '../services/event.service';
-import { faPen, faTrash, faLocationDot, faCalendarDay } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash, faLocationDot, faCalendarDay, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Event } from '../models/event.model'
 import { Router } from '@angular/router';
 import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TicketsComponent } from '../tickets/tickets.component';
 import { EventsListComponent } from '../events-list/events-list.component';
+import { TicketService } from '../services/ticket.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,8 @@ import { EventsListComponent } from '../events-list/events-list.component';
 })
 export class HomeComponent implements OnInit {
 
+  faLeft = faChevronLeft;
+  faRight = faChevronRight;
   faPen = faPen;
   faTrash = faTrash;
   faLocation = faLocationDot;
@@ -24,8 +27,10 @@ export class HomeComponent implements OnInit {
   listView = false;
 
   events: Event[] = [];
+  currentYear: number = new Date().getFullYear();
+  currentYearEvents: Event[] = [];
 
-  constructor(private router: Router, private sService: StorageService, private eService: EventService, private modalService: NgbModal) { }
+  constructor(private router: Router, private sService: StorageService, private tService: TicketService, private eService: EventService, private modalService: NgbModal) { }
 
 
   ngOnInit(): void {
@@ -37,6 +42,7 @@ export class HomeComponent implements OnInit {
     this.eService.getEvents().subscribe({
       next: (response) => {
         this.events = response.sort((a: Event, b: Event) => (a.eventStart > b.eventStart) ? 1 : -1);
+        this.currentYearEvents = this.getCurrentYearEvents(this.currentYear)
       },
       error: (err) => {
         console.log(err)
@@ -49,10 +55,26 @@ export class HomeComponent implements OnInit {
   }
 
   onDelete(event: Event) {
-    this.eService.deleteEvent(event.id).subscribe({
+    this.deleteEvent(event.id);
+    this.deleteTicket(event.ticketId);
+  }
+
+  deleteEvent(id: number) {
+    this.events = this.events.filter(e => e.id !== id)
+    this.currentYearEvents = this.currentYearEvents.filter(e => e.id !== id)
+
+    this.eService.deleteEvent(id).subscribe({
       next: (data) => {
-        console.log("Deleted", data)
-        window.location.reload()
+        console.log("Deleted event", data)
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  deleteTicket(id: number) {
+    this.tService.deleteTicket(id).subscribe({
+      next: (data) => {
+        console.log("Deleted ticket", data)
       },
       error: (err) => console.log(err)
     })
@@ -100,5 +122,21 @@ export class HomeComponent implements OnInit {
       e.eventStart === formatedDate ? isEvent = true : null
     })
     return isEvent
+  }
+
+  prevYear() {
+    this.currentYear -= 1
+    this.currentYearEvents = this.getCurrentYearEvents(this.currentYear)
+  }
+
+  nextYear() {
+    this.currentYear += 1
+    this.currentYearEvents = this.getCurrentYearEvents(this.currentYear)
+  }
+
+  getCurrentYearEvents(currentYear: number): Event[] {
+    let sortedEvents: Event[] = []
+    sortedEvents = this.events.filter(e => e.eventStart.split("-")[0] === currentYear.toString())
+    return sortedEvents
   }
 }
