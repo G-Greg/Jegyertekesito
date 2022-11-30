@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service'
+import { UserService } from 'src/app/services/user.service';
+import { faEnvelope, faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registration',
@@ -10,11 +11,13 @@ import { UserService } from 'src/app/services/user.service'
 export class RegistrationComponent implements OnInit {
 
   close = new EventEmitter<void>();
+  
+  faKey = faKey;
+  faUser = faUser;
+  faEmail = faEnvelope;
 
   form = { name: null, username: null, email: null, password: null, terms: false }
-  constructor(private service: UserService, private router: Router) {
-
-  }
+  constructor(private service: UserService, private router: Router) { }
 
   status = { isError: false, message: ''}
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { StorageService } from '../services/storage.service';
+import { faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import { StorageService } from '../services/storage.service';
 })
 export class LoginComponent implements OnInit {
 
+  faKey = faKey;
+  faUser = faUser;
   form = { username: '', password: '' }
   error = { isError: false, message: ''}
 

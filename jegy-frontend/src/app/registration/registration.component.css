@@ -3,6 +3,11 @@
     border-color: #670060;
 }
 
+.card-body{
+    color: #670060;
+    font-weight: 500;
+}
+
 .card-header,
 .card-footer{
     color: white;
@@ -13,13 +18,7 @@
     background-color: #c39d2b;
     border-color: #c39d2b;
     box-shadow: 2px 2px 5px 0px #524212;
-}
-
-.btn-secondary{
-    color: #ffffff;
-    background-color: #9a9a9a;
-    border-color: #efefef;
-    box-shadow: 2px 2px 5px 0px white;
+    font-weight: 500;
 }
 
 .form-control:focus{

@@ -2,6 +2,17 @@
     box-shadow: 2px 3px 4px #888888;
 }
 
+.card-body{
+    color: #670060;
+    font-weight: 500;
+}
+
+
+.card-header,
+.card-footer {
+    color: white;
+    background-color: #8e1b87;
+}
 
 
 .btn-primary {
@@ -24,4 +35,9 @@
 
 label {
     color: #670060
+}
+
+.desc{
+    font-weight: 800;
+    color: #c39d2b;
 }

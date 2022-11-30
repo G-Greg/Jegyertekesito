@@ -6,7 +6,7 @@
     <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate class="col-6">
 
       <div class="mb-3">
-        <label for="name">
+        <label for="name"><fa-icon [icon]="faUser"></fa-icon> 
           Name
         </label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" [(ngModel)]="form.name"
@@ -20,7 +20,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="name">
+        <label for="name"><fa-icon [icon]="faUser"></fa-icon> 
           Username
         </label>
         <input type="text" class="form-control" id="username" name="username" placeholder="Enter username"
@@ -34,7 +34,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="email">
+        <label for="email"><fa-icon [icon]="faEmail"></fa-icon> 
           Email
         </label>
         <input type="text" class="form-control" id="email" name="email" placeholder="Enter email"
@@ -52,7 +52,7 @@
 
 
       <div class="mb-3">
-        <label for="password">
+        <label for="password"><fa-icon [icon]="faKey"></fa-icon> 
           Password
         </label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"
@@ -68,7 +68,7 @@
       <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="terms" name="terms" required [(ngModel)]="form.terms"
           #terms>
-        <label class="form-check-label" for="terms">I agree to the <a href="/sign-up">Terms of Service</a></label>
+        <label class="form-check-label" for="terms">I agree to the <a href="https://github.com/G-Greg/Jegyertekesito/blob/main/README.md">Terms of Service</a></label>
       </div>
 
       <div class="alert alert-success" role="alert" *ngIf="!status.isError && status.message === 'success' ">

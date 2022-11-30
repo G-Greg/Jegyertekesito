@@ -15,8 +15,9 @@
                         <img class="card-img-top" [src]="event.imgSource" width="250" height="200">
                         <div class="card-body">
                             <div class="desc">{{event.description}}</div>
-                            <div class="desc">{{event.location}}</div>
-                            <div class="desc">{{event.eventStart}}</div>
+                            <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+                            <br>
+                            <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
                         </div>
                     </a>
                     <div class="card-footer">

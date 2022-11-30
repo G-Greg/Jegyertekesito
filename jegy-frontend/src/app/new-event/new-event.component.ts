@@ -4,6 +4,7 @@ import { TicketService } from '../services/ticket.service';
 import { EventService } from '../services/event.service';
 import { Event } from '../models/event.model'
 import { Ticket } from '../models/ticket.model'
+import { faSquareCaretDown, faTicket, faBars, faLocationDot, faCalendarDay, faUpload, faImage } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-new-event',
   templateUrl: './new-event.component.html',
@@ -11,6 +12,15 @@ import { Ticket } from '../models/ticket.model'
 })
 
 export class NewEventComponent implements OnInit {
+
+
+  faBars = faBars;
+  faTicket = faTicket;
+  faCategory = faSquareCaretDown;
+  faLocation = faLocationDot;
+  faCalendar = faCalendarDay;
+  faUpload = faUpload;
+  faPicture = faImage
 
   response = { state: 'Undefined', body: '' }
 

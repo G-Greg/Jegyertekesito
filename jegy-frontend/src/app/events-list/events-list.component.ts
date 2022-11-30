@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Event } from '../models/event.model';
 import { StorageService } from '../services/storage.service';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDay, faLocationDot, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { EventService } from '../services/event.service';
 import { TicketsComponent } from '../tickets/tickets.component';
@@ -23,6 +23,8 @@ export class EventsListComponent implements OnInit {
 
   faPen = faPen;
   faTrash = faTrash;
+  faLocation = faLocationDot;
+  faCalendar = faCalendarDay;
 
   constructor(private eService: EventService, private sService: StorageService, private router: Router, private modalService: NgbModal) { }
 
@@ -54,7 +56,7 @@ export class EventsListComponent implements OnInit {
 
   showTicketsOfEvent(thisEvent: any) {
     this.close.emit()
-    let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'xl' });
+    let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'lg' });
     (login.componentInstance as TicketsComponent).initShow({ close: () => login.close() });
     login.componentInstance.event = thisEvent
   }

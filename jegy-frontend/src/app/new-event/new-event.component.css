@@ -10,6 +10,7 @@
 }
 
 .btn-primary {
+    font-weight: 500;
     background-color: #c39d2b;
     border-color: #c39d2b;
     box-shadow: 2px 2px 5px 0px #524212;
@@ -22,4 +23,8 @@
 
 label {
     color: #670060
+}
+
+.card-body{
+    font-weight: 500;
 }

@@ -9,10 +9,10 @@
                 <div class="col">
 
                     <div class="mb-3">
-                        <label for="description">Description</label>
+                        <label for="description"><fa-icon [icon]="faBars"></fa-icon> Description</label>
                         <input type="text" class="form-control" id="description" name="description"
                             placeholder="Enter description" [(ngModel)]="form.description" required
-                            #description="ngModel" tabindex="-1">
+                            #description="ngModel">
 
                         <div *ngIf="description.invalid && (description.dirty || description.touched)"
                             class="alert alert-danger p-2 mt-2">
@@ -23,10 +23,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="location">Location</label>
+                        <label for="location"><fa-icon [icon]="faLocation"></fa-icon> Location</label>
                         <input type="text" class="form-control" id="location" name="location"
-                            placeholder="Enter location" [(ngModel)]="form.location" required #location="ngModel"
-                            tabindex="-1">
+                            placeholder="Enter location" [(ngModel)]="form.location" required #location="ngModel">
 
                         <div *ngIf="location.invalid && (location.dirty || location.touched)"
                             class="alert alert-danger p-2 mt-2">
@@ -39,7 +38,7 @@
                     <div class="row">
 
                         <div class="mb-3 col-5">
-                            <label for="category">Category</label>
+                            <label for="category"><fa-icon [icon]="faCategory"></fa-icon> Category</label>
                             <select class="form-select" id="category" name="category" required #category
                                 (change)="handleCategory($event.target)">
                                 <option selected value="default" disabled>Please select</option>
@@ -52,20 +51,22 @@
 
                         <div class="mb-3 col-3">
                             <label for="tickets">Price</label>
-                            <input type="number" class="form-control" id="price" name="price" min="1" (change)="handleTicketProps(category)"
-                                [(ngModel)]="form.price" required #price="ngModel" tabindex="-1" [disabled]="category.value == 'default'">
+                            <input type="number" class="form-control" id="price" name="price" min="1"
+                                (change)="handleTicketProps(category)" [(ngModel)]="form.price" required
+                                #price="ngModel" [disabled]="category.value == 'default'">
                         </div>
 
                         <div class="mb-3 col-4">
                             <label for="tickets">Number of tickets</label>
-                            <input type="number" class="form-control" id="tickets" name="tickets" min="1" (change)="handleTicketProps(category)"
-                                [(ngModel)]="form.tickets" required #tickets="ngModel" tabindex="-1" [disabled]="category.value == 'default'">
+                            <input type="number" class="form-control" id="tickets" name="tickets" min="1"
+                                (change)="handleTicketProps(category)" [(ngModel)]="form.tickets" required
+                                #tickets="ngModel" [disabled]="category.value == 'default'">
                         </div>
                     </div>
 
 
                     <div class="mb-3">
-                        <label for="eventStart">Event start</label>
+                        <label for="eventStart"><fa-icon [icon]="faCalendar"></fa-icon> Event start</label>
                         <input id="eventStart" class="form-control" type="date" name="eventStart" required
                             #eventStart="ngModel" [(ngModel)]="form.eventStart" />
                     </div>
@@ -77,8 +78,8 @@
 
                     <div class="mb-3">
                         <label for="description">About</label>
-                        <textarea type="textarea" class="form-control" id="about" name="about" [(ngModel)]="form.about" style="resize: none;"
-                            required #about="ngModel" tabindex="-1" rows="4"></textarea>
+                        <textarea type="textarea" class="form-control" id="about" name="about" [(ngModel)]="form.about"
+                            style="resize: none;" required #about="ngModel" rows="4"></textarea>
 
                         <div *ngIf="about.invalid && (about.dirty || about.touched)"
                             class="alert alert-danger p-2 mt-2">
@@ -89,20 +90,21 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Upload event image</label>
-                        <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onUploadPhoto($event)">
+                        <label for="formFile" class="form-label"><fa-icon [icon]="faUpload"></fa-icon> Upload event image</label>
+                        <input class="form-control" type="file" id="formFile" accept="image/*"
+                            (change)="onUploadPhoto($event)">
                     </div>
 
                     <div class="mb-3">
-                        <label for="eventEnd">Event end</label>
+                        <label for="eventEnd"><fa-icon [icon]="faCalendar"></fa-icon> Event end</label>
                         <input type="date" class="form-control" id="eventEnd" name="eventEnd"
-                            [(ngModel)]="form.eventEnd" required #eventEnd="ngModel" tabindex="-1" />
+                            [(ngModel)]="form.eventEnd" required #eventEnd="ngModel" />
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="eventEnd">Preview</label>
+                <label for="eventEnd"><fa-icon [icon]="faPicture"></fa-icon> Preview</label>
                 <br>
                 <img id="avatar" width="300" height="150">
             </div>

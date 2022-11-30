@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
   }
 
   showTicketsOfEvent(thisEvent: any) {
-    let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'xl' });
+    let login = this.modalService.open(TicketsComponent, { backdrop: 'static', centered: true, size: 'lg' });
     (login.componentInstance as TicketsComponent).initShow({ close: () => login.close() });
     login.componentInstance.event = thisEvent
   }
