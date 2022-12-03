@@ -16,6 +16,7 @@
     box-shadow: 2px 2px 5px 0px #524212;
 }
 
+.form-select:focus,
 .form-control:focus {
     border-color: #67006045;
     box-shadow: 0 0 0 0.25rem #67006036;

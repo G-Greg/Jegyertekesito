@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { StorageService } from './services/storage.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
       ],
+      imports: [RouterTestingModule],
+      providers: [StorageService]
     }).compileComponents();
   });
 
@@ -16,16 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'jegy-frontend'`, () => {
+  it(`should have as title 'Jegyértékesítő'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('jegy-frontend');
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('Jegyértékesítő');
   });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('jegy-frontend app is running!');
-  });
+  
 });

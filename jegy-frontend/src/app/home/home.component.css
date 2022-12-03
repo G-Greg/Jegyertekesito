@@ -75,17 +75,17 @@ h3 {
     margin: 0 auto;
 }
 
-.year{
+.year {
     font-weight: 800;
     font-size: x-large;
-    color:#97008d;
+    color: #97008d;
     font-style: italic;
 }
 
-.arrow{
+.arrow {
     cursor: pointer;
 }
 
-.desc{
+.desc {
     text-align: justify;
 }

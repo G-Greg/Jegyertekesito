@@ -50,6 +50,7 @@ export class SummaryComponent implements OnInit {
   getUser() {
     this.loggedUser = this.sService.getUser()
     if (this.loggedUser === null) {
+      this.loggedUser = {name:'', username: '', email: ''}
       this.isPurchase = false
       this.alert.state = 'Fail'
       this.alert.body = `This user is invalid`

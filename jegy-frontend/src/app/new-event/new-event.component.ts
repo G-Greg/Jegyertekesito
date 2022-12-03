@@ -138,10 +138,12 @@ export class NewEventComponent implements OnInit {
       let newEvent = await this.createEvent()
       if (newEvent) {
         this.eService.addEvent(newEvent).subscribe({
-          next: (data) => {
+          next: (data: any) => {
             this.response.state = 'Success'
             this.response.body = 'Successfully created an event'
             console.log("Created event:", data)
+            this.form.id = data.id;
+            this.updateTicket()
           },
           error: (err) => {
             this.response.state = 'Fail'
@@ -261,7 +263,7 @@ export class NewEventComponent implements OnInit {
 
 
   async createTicket() {
-    return new Promise((resolve, reject) => {
+    return new Promise<number>((resolve, reject) => {
       let newTicket: Ticket = {
         id: 0,
         eventId: this.form.id,
@@ -279,6 +281,7 @@ export class NewEventComponent implements OnInit {
         this.tService.addTicket(newTicket).subscribe({
           next: (data: any) => {
             this.form.ticketId = data.id
+            this.ticket.id = data.id
             console.log("Success create a ticket", data)
             resolve(data.id)
           },

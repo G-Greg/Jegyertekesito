@@ -12,7 +12,7 @@ import { StorageService } from './services/storage.service';
 })
 export class AppComponent {
 
-  title = 'jegy-frontend';
+  title = 'Jegyértékesítő';
   isNavbarCollapsed = true;
   faTicket = faTicket;
   faUser = faUser;
@@ -20,7 +20,7 @@ export class AppComponent {
 
   username = null;
 
-  constructor(private modalService: NgbModal, private sService: StorageService) {
+  constructor(private router: Router, private modalService: NgbModal, private sService: StorageService) {
     this.initJegyertekesito();
   }
 
