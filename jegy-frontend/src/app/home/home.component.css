@@ -89,3 +89,12 @@ h3 {
 .desc {
     text-align: justify;
 }
+
+.info {
+    margin-top: 10px;
+    font-weight: 500;
+    border-radius: 8px;
+    background-color: #97008d;
+    color: white;
+    box-shadow: 2px 2px 5px 0px #524212;
+}

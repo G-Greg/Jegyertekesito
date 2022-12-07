@@ -70,9 +70,11 @@
                 <div class="desc">
                   {{event.about}}
                 </div>
-                <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
-                <br>
-                <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+                <div class="info">
+                  <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+                  <br>
+                  <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+                </div>
                 <br>
               </div>
             </div>
@@ -114,10 +116,11 @@
               <div class="desc">
                 {{event.about}}
               </div>
-              <br>
-              <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
-              <br>
-              <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+              <div class="info">
+                <fa-icon [icon]="faCalendar"></fa-icon> {{event.eventStart}}
+                <br>
+                <fa-icon [icon]="faLocation"></fa-icon> {{event.location}}
+              </div>
             </div>
           </div>
         </div>
