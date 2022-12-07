@@ -18,7 +18,7 @@ adatbázis fogja segíteni a megfelelő működés eléréséhez. A frontend ped
 A második néztet az egy listanézet ahol listaszerűen lehet böngészni az események közül.
 <p align="center">
 <img src="https://user-images.githubusercontent.com/24989500/205486978-d817b457-552e-4565-8867-03f33c6c2579.png" width="500">
-<img src="https://user-images.githubusercontent.com/24989500/205487550-7fbb2e2f-ef5e-45ad-952c-acd9d4980774.png" width="500">
+<img src="https://user-images.githubusercontent.com/24989500/206264448-220093e2-8a84-447a-9402-89d5075e8036.png" width="500">
 </p>
 
 
@@ -43,7 +43,7 @@ A második néztet az egy listanézet ahol listaszerűen lehet böngészni az es
 ### Jegyvásárlása
 - Az esemény rákattintásával lehet megnézni a jegyek árát és kategóriáját.
 <p align="center">
-<img src="https://user-images.githubusercontent.com/24989500/205491293-54a8f50f-7e13-4002-91c5-a788d1b11c8c.png" width="500">
+<img src="https://user-images.githubusercontent.com/24989500/206264823-be50da3b-ede3-45e5-bbe3-c108b22ff107.png" width="500">
 </p>
 
 - Bejelentkezést követően a felhasználók megtudják venni a kiválasztott jegyet.
